@@ -1,2 +1,2 @@
 # INF029
-Repositório dedicado a disciplina Laboratório de Programação.
+Repository dedicated to Discipline Introduction to Programming Logic.
