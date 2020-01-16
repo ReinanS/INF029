@@ -22,7 +22,8 @@
 // #################################################
 
 #include <stdio.h>
-#include <conio.h>
+#include <string.h>
+#include <stdlib.h>
 
 /*
 ## função utilizada para testes  ##
@@ -67,17 +68,12 @@ int fatorial(int x){ //função utilizada para testes
     0 -> se data inválida
     1 -> se data válida
  */
+
+int valida_data_numeros(int dia, int mes, int ano);
+int procura_char(char c);
+
 int q1(char *data){
-    int datavalida = 1;
-
-    //printf("%s\n", data);
-
-
-    //if (datavalida)
-      //  return 1;
-    //else
-      //  return 0;
-
+   
     int iDia;
     int iMes;
     int iAno;
@@ -95,7 +91,7 @@ int q1(char *data){
         
         if (i > 1) return 0; //NO MAXIMO 2 NUMEROS ANTES DE '/'
         
-        if (procura_char(sDia[i]) == 0) return 0; // 
+        if (procura_char(sDia[i]) == 1) return 0; // 
         
     }
     
@@ -118,7 +114,7 @@ int q1(char *data){
         
         if (cont_Mes > 1) return 0; 
         
-        if (procura_char(sMes[cont_Mes]) == 0) return 0; // 
+        if (procura_char(sMes[cont_Mes]) == 1) return 0; // 
         
     }
     
@@ -137,7 +133,7 @@ int q1(char *data){
        
        sAno[cont_Ano] = data[i];
        
-       if (procura_char(data[i]) == 0) return 0;
+       if (procura_char(data[i]) == 1) return 0;
    }
    
     if (cont_Ano != 2 && cont_Ano != 4) return 0; //SÓ ACEITA SE O ANO SE TIVER 2 OU 4 DIGITOS
@@ -150,27 +146,22 @@ int q1(char *data){
     //validar
     int retorno = valida_data_numeros(iDia, iMes, iAno);
     
-    return retorno;  
+    return retorno;
 
 }
-int datavalida(char data[]){
-    
-    
-}
-
 int valida_data_numeros(int dia, int mes, int ano){
     
 		 
-    if (dia < 1 || dia > 31 && mes < 1 || mes > 12 && ano < 1900 || ano > 2019)
+    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2019)
         return 0;
     
     if ((dia > 30) && mes == 4 || mes == 6 || mes == 9 || mes == 11)
         return 0;
     
     //FEVEREIRO
-    if ((dia > 29) && mes == 2 && ano % 4 == 0) // ANO BISSEXTO
+    if ((dia > 29) && mes == 2 && ano % 4 == 0 || ano % 400 == 0 && ano % 100 != 0) // ANO BISSEXTO
         return 0;
-    if ((dia > 28) && mes == 2 && ano % 4 != 0)
+    if ((dia > 28) && mes == 2 && ano % 4 != 0 || ano % 400 != 0 && ano % 100 == 0)
         return 0;
         
     	
@@ -180,9 +171,9 @@ int valida_data_numeros(int dia, int mes, int ano){
 
 int procura_char(char c){
     if (c < 48 || c > 57)
-        return 0;
-    else
         return 1;
+    else
+        return 0;
 }
 
 /*
@@ -196,7 +187,7 @@ int procura_char(char c){
     2 -> datainicial inválida
     3 -> datafinal inválida
     4 -> datainicial > datafinal
- 
+ */
 int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtdAnos){
     
     //calcule os dados e armazene nas três variáveis a seguir
@@ -205,7 +196,9 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
 
     if (q1(datainicial) == 0)
         return 2;
-
+    if (q1(datafinal) == 0)
+        return 3;
+    
     nDias = 4;
     nMeses = 10;
     nAnos = 2;
@@ -215,7 +208,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
 
     /*mantenha o código abaixo, para salvar os dados em 
     nos parâmetros da funcao
-    
+    */
     *qtdDias = nDias;
     *qtdAnos = nAnos;
     *qtdMeses = nMeses;
@@ -224,6 +217,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     return 1;
 
 }
+
 
 /*
  Q3 = encontrar caracter em texto
@@ -234,22 +228,11 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
         Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
  @saida
     Um número n >= 0.
- 
+ */
 int q3(char *texto, char c, int isCaseSensitive){
-    
-    int cont = 0;
-    int i;
-    
-    if (iscaseSensitive == 1){
-        for (i = 0; i < strlen(texto); i++)
-            if (c == texto[i])
-                cont ++;
-    }else 
-        for (i = 0; i < strlen(texto); i++)
-            if (c == texto[i] || tolower(c) == texto[i] || toupper(c) == texto[i]) 
-                cont ++;
-    
-    return cont;
+    int qtdOcorrencias = -1;
+
+    return qtdOcorrencias;
 
 }
 
@@ -267,24 +250,12 @@ int q3(char *texto, char c, int isCaseSensitive){
         Observe que o índice da posição no texto deve começar ser contado a partir de 1.
         O retorno da função, n, nesse caso seria 1;
 
- 
+ */
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
-    
-    int i, j; 
     int qtdOcorrencias = -1;
-    
-    for (i = 0, j = 0; i < strlen(strBusca); i++)
-        
-        while(strTexto[i] == strBusca[j]){
-            j++;
-            i++;
-
-        
-        if (strBusca[j] == '\0')
-            
-        }
 
     return qtdOcorrencias;
+
 }
 
 /*
@@ -295,27 +266,10 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
     uma int num.
  @saida
     Número invertido
- 
+ */
 
 int q5(int num){
 
-    num %= 10;
-    int auxiliar /= 10;
-     
-    if (num > 0){
-        
-        do{
-           num *= 10;
-           num += auxiliar % 10; 
-           auxiliar /= 10;
-           
-        }while(auxiliar > 0);
-    
-        
-    }else{
-       
-    }
-    
     return num;
 }
 
@@ -327,23 +281,9 @@ int q5(int num){
     Um número base (numerobase) e um número de busca (numerobusca).
  @saida
     Quantidade de vezes que número de busca ocorre em número base
- 
+ */
 
-int q6(int num, int busca){
-    
-    int count = 0;
-    int aux;
-    
-    do{
-       
-        aux = num % 10;
-        
-        if (aux == busca)
-            count ++;
-        
-        num /= 10;
-        
-    }while(num > 0);
-    
-    return count;*/
+int q6(int numerobase, int numerobusca){
+    int qtdOcorrencias;
+    return qtdOcorrencias;
 }
