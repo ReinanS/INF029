@@ -152,16 +152,16 @@ int q1(char *data){
 int valida_data_numeros(int dia, int mes, int ano){
     
 		 
-    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2019)
+    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1 || ano > 2020)
         return 0;
     
-    if ((dia > 30) && mes == 4 || mes == 6 || mes == 9 || mes == 11)
+    if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11) )
         return 0;
     
     //FEVEREIRO
-    if ((dia > 29) && mes == 2 && ano % 4 == 0 || ano % 400 == 0 && ano % 100 != 0) // ANO BISSEXTO
+    if (dia > 29 && (mes == 2 && ano % 4 == 0 || ano % 400 == 0 && ano % 100 != 0) ) // ANO BISSEXTO
         return 0;
-    if ((dia > 28) && mes == 2 && ano % 4 != 0 || ano % 400 != 0 && ano % 100 == 0)
+    if (dia > 28 && (mes == 2 && ano % 4 != 0 || ano % 400 != 0 && ano % 100 == 0) )
         return 0;
         
     	
@@ -190,6 +190,13 @@ int procura_char(char c){
  */
 int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtdAnos){
     
+    char sDia[3], sMes[3], sAno[5];
+
+    int iDiaInicial, iMesInicial, iAnoInicial;
+    int iDiaFinal, iMesFinal, iAnoFinal;
+    
+    int i, j, cont_Mes = 0, cont_Ano = 0;
+
     //calcule os dados e armazene nas três variáveis a seguir
     int nDias, nMeses, nAnos;
 
@@ -199,12 +206,86 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     if (q1(datafinal) == 0)
         return 3;
     
-    nDias = 4;
-    nMeses = 10;
-    nAnos = 2;
+    // Capturando Valores da Data Inicial
+    
+    for (i = 0; datainicial[i] != '/'; i++)
+        sDia[i] = datainicial[i];
+    
+    sDia[i] = '\0';
+    i++;
+    
+    for (j = i, cont_Mes = 0; datainicial[j] != '/'; j++, cont_Mes++)
+        sMes[cont_Mes] = datainicial[j];
+    
+    sMes[j] = '\0';
+    j++;
+   
+    for (i = j, cont_Ano = 0; i < strlen(datainicial); i++, cont_Ano++)
+       sAno[cont_Ano] = datainicial[i];
+    
+    sAno[cont_Ano] = '\0';
+   
+   //Convertendo String em Inteiro
+    iDiaInicial = atoi(sDia); 
+    iMesInicial = atoi(sMes);
+    iAnoInicial = atoi(sAno);
+    
+    // Capturando Valores da Data Final
+    
+   for (i = 0; datafinal[i] != '/'; i++)
+        sDia[i] = datafinal[i];
+    
+    sDia[i] = '\0';
+    i++;
+    
+    for (j = i, cont_Mes = 0; datafinal[j] != '/'; j++, cont_Mes++)
+        sMes[cont_Mes] = datafinal[j];
+    
+    sMes[j] = '\0';
+    j++;
+   
+    for (i = j, cont_Ano = 0; i < strlen(datafinal); i++, cont_Ano++)
+       sAno[cont_Ano] = datafinal[i];
+    
+    sAno[cont_Ano] = '\0';
+   
+    //Convertendo String em Inteiro
+    iDiaFinal = atoi(sDia); 
+    iMesFinal = atoi(sMes);
+    iAnoFinal = atoi(sAno);
 
-
-
+    if (iAnoFinal < iAnoInicial || (iAnoFinal == iAnoInicial && iMesFinal < iMesInicial) || (iAnoFinal == iAnoInicial && iMesFinal == iMesInicial && iDiaFinal < iDiaInicial))
+        return 4;
+    
+    int mesFinalAnterior = iMesFinal - 1;
+    
+    if (iDiaFinal < iDiaInicial){
+        
+        if (mesFinalAnterior == 2){ // Fevereiro
+            
+            if (mesFinalAnterior % 4 == 0 || mesFinalAnterior % 400 == 0 && mesFinalAnterior % 100 != 0) // Ano Bissexto
+                iDiaFinal += 29;
+            else
+                iDiaFinal += 28;
+        }
+        
+        if (mesFinalAnterior == 4 || mesFinalAnterior == 6 || mesFinalAnterior == 9 || mesFinalAnterior == 11)
+            iDiaFinal += 30;
+        else
+            iDiaFinal += 31;
+        
+        iMesFinal --;
+    }
+    
+    if (iMesFinal < iMesInicial){
+        
+        iMesFinal += 12;
+        iAnoFinal --;
+    }
+    
+    nDias = iDiaFinal - iDiaInicial;
+    nMeses = iMesFinal - iMesInicial;
+    nAnos = iAnoFinal - iAnoInicial;
 
     /*mantenha o código abaixo, para salvar os dados em 
     nos parâmetros da funcao
