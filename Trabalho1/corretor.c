@@ -30,14 +30,14 @@ void testQ5();
 void testQ6();
 
 int main(){
-    testSomar();
-    testFatorial();
-    testQ1();
-    testQ2();
+   // testSomar();
+   // testFatorial();
+   // testQ1();
+   // testQ2();
     testQ3();
-    testQ4();
-    testQ5();
-    testQ6();
+   // testQ4();
+   // testQ5();
+   // testQ6();
 }
 
 
@@ -128,6 +128,12 @@ void testQ3(){
     printf("%d\n",q3(str, 'l', 1) == 0);
     printf("%d\n",q3(str, 'l', 0) == 1);
     printf("%d\n",q3(str, 'L', 0) == 1);
+    
+    strcpy(str,"Reinan de Souza Albuquerque");
+    printf("%d\n",q3(str, 'a', 0) == 3);
+    printf("%d\n",q3(str, 'a', 1) == 2);
+    printf("%d\n",q3(str, 'A', 1) == 1);
+    printf("%d\n",q3(str, 'A', 0) == 3);
 }
 
 void testQ4(){

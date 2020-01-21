@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /*
 ## função utilizada para testes  ##
@@ -208,62 +209,63 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     
     // Capturando Valores da Data Inicial
     
-    for (i = 0; datainicial[i] != '/'; i++)
+    for (i = 0; datainicial[i] != '/'; i++) // Dia
         sDia[i] = datainicial[i];
     
     sDia[i] = '\0';
     i++;
     
-    for (j = i, cont_Mes = 0; datainicial[j] != '/'; j++, cont_Mes++)
+    for (j = i, cont_Mes = 0; datainicial[j] != '/'; j++, cont_Mes++) // Mês
         sMes[cont_Mes] = datainicial[j];
     
     sMes[j] = '\0';
     j++;
    
-    for (i = j, cont_Ano = 0; i < strlen(datainicial); i++, cont_Ano++)
+    for (i = j, cont_Ano = 0; i < strlen(datainicial); i++, cont_Ano++) // Ano
        sAno[cont_Ano] = datainicial[i];
     
     sAno[cont_Ano] = '\0';
    
-   //Convertendo String em Inteiro
+   // Convertendo String em Inteiro
     iDiaInicial = atoi(sDia); 
     iMesInicial = atoi(sMes);
     iAnoInicial = atoi(sAno);
     
     // Capturando Valores da Data Final
     
-   for (i = 0; datafinal[i] != '/'; i++)
+   for (i = 0; datafinal[i] != '/'; i++) // Dia
         sDia[i] = datafinal[i];
     
     sDia[i] = '\0';
     i++;
     
-    for (j = i, cont_Mes = 0; datafinal[j] != '/'; j++, cont_Mes++)
+    for (j = i, cont_Mes = 0; datafinal[j] != '/'; j++, cont_Mes++) // Mês
         sMes[cont_Mes] = datafinal[j];
     
     sMes[j] = '\0';
     j++;
    
-    for (i = j, cont_Ano = 0; i < strlen(datafinal); i++, cont_Ano++)
+    for (i = j, cont_Ano = 0; i < strlen(datafinal); i++, cont_Ano++) // Ano
        sAno[cont_Ano] = datafinal[i];
     
     sAno[cont_Ano] = '\0';
    
-    //Convertendo String em Inteiro
+    // Convertendo String em Inteiro
     iDiaFinal = atoi(sDia); 
     iMesFinal = atoi(sMes);
     iAnoFinal = atoi(sAno);
-
+    
+    // Se Data Inicial for Maior que a Data Final
     if (iAnoFinal < iAnoInicial || (iAnoFinal == iAnoInicial && iMesFinal < iMesInicial) || (iAnoFinal == iAnoInicial && iMesFinal == iMesInicial && iDiaFinal < iDiaInicial))
         return 4;
     
-    int mesFinalAnterior = iMesFinal - 1;
+    int mesFinalAnterior = iMesFinal - 1; // Se o dia Final for menor que o dia Inicial ele vai pegar emprestado todos os dias do mês Final
     
     if (iDiaFinal < iDiaInicial){
         
         if (mesFinalAnterior == 2){ // Fevereiro
             
-            if (mesFinalAnterior % 4 == 0 || mesFinalAnterior % 400 == 0 && mesFinalAnterior % 100 != 0) // Ano Bissexto
+            if (mesFinalAnterior % 4 == 0 || mesFinalAnterior % 400 == 0 && (mesFinalAnterior % 100 != 0) ) // Ano Bissexto
                 iDiaFinal += 29;
             else
                 iDiaFinal += 28;
@@ -311,10 +313,21 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     Um número n >= 0.
  */
 int q3(char *texto, char c, int isCaseSensitive){
-    int qtdOcorrencias = -1;
-
+    
+    int qtdOcorrencias = 0;
+    int i;
+    
+    if (isCaseSensitive == 1)
+        for (i = 0; i < strlen(texto); i++)
+            if (c == texto[i])
+                qtdOcorrencias++;
+    
+    if (isCaseSensitive != 1)
+        for(i = 0; i < strlen(texto); i++)
+            if (c == texto[i] || toupper(c) == texto[i] || tolower(c) == texto[i]) // Toupper = Caractere em Maiúsculo; Tolowe = Caractere em Minúsculo.
+                qtdOcorrencias++;
+    
     return qtdOcorrencias;
-
 }
 
 /*
