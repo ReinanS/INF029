@@ -375,12 +375,6 @@ int q5(int num){
     
    int inverso = 0; // Inicializa com 0 para a primeira interação
    int aux;
-   
-    /*  
-        Pegar o resto por 10
-        Multiplica o inverso por 10 e soma com o resto por 10;
-        num vai ser igual a num dividido por 10
-     */
         
    while (num > 0){
 
@@ -429,40 +423,3 @@ int q6(int numerobase, int numerobusca){
    return qtdOcorrencias;
     
 }
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*int aux, qtdOcorrencias = 0;
-    int tamanho = 1;
-
-  aux = numerobusca; 
-
-  while(aux != 0){ //Enquanto K(numerobusca) for diferente de zero ele sera dividido para calcular seu tamanho
-  tamanho = tamanho * 10;
-  aux = aux / 10;
-    }
-}
-  aux = numerobase;
-
-  while(aux != 0){
-    if(aux % tamanho == numerobusca){ //Verifica se o resto da divisao do numero(numerobase) é igual a K(numerobusca) 
-      qtdOcorrencias++;
-      aux = aux / tamanho;
-    }
-    else
-      aux = aux / 10;
-  }
-  return qtdOcorrencias;*/
-
