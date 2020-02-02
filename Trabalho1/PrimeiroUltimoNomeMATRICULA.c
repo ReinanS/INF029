@@ -403,20 +403,66 @@ int q5(int num){
  */
 
 int q6(int numerobase, int numerobusca){
-    
-    int qtdOcorrencias = 0;
-    int aux;
+   
+   int aux, qtdOcorrencias = 0;
 
-    do{
-       
-        aux = num % 10;
-        
-        if (aux == busca)
-            qtdOcorrencias ++;
-        
-        num /= 10;
-        
-    }while(num > 0);
-        
-    return qtdOcorrencias;
+   int tamanho = 1;
+
+   aux = numerobusca;
+
+   while (aux != 0){ // Enquanto numero de busca for diferente de zero, ele vai continuar dividindo e armazendo o tamanho do numero
+    tamanho = tamanho * 10;
+    aux = aux / 10;
+   }
+
+   aux = numerobase;
+
+   while (aux != 0){ // Enquanto numero base for diferente de zero, ele vai continuar a busca
+
+    if (aux % tamanho == numerobusca){ // Separando o numero de acordo com o seu tamanho e o comparando
+        qtdOcorrencias ++;
+        aux = aux / tamanho;
+   
+   }else
+        aux = aux / 10; // Separando o numero com uma posição
+ }
+   return qtdOcorrencias;
+    
 }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*int aux, qtdOcorrencias = 0;
+    int tamanho = 1;
+
+  aux = numerobusca; 
+
+  while(aux != 0){ //Enquanto K(numerobusca) for diferente de zero ele sera dividido para calcular seu tamanho
+  tamanho = tamanho * 10;
+  aux = aux / 10;
+    }
+}
+  aux = numerobase;
+
+  while(aux != 0){
+    if(aux % tamanho == numerobusca){ //Verifica se o resto da divisao do numero(numerobase) é igual a K(numerobusca) 
+      qtdOcorrencias++;
+      aux = aux / tamanho;
+    }
+    else
+      aux = aux / 10;
+  }
+  return qtdOcorrencias;*/
+
