@@ -403,8 +403,20 @@ int q5(int num){
  */
 
 int q6(int numerobase, int numerobusca){
-    int qtdOcorrencias;
+    
+    int qtdOcorrencias = 0;
+    int aux;
 
+    do{
+       
+        aux = num % 10;
+        
+        if (aux == busca)
+            qtdOcorrencias ++;
+        
+        num /= 10;
+        
+    }while(num > 0);
         
     return qtdOcorrencias;
 }
