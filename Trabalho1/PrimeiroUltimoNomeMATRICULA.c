@@ -338,7 +338,9 @@ int q3(char *texto, char c, int isCaseSensitive){
     uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que irá guardar as posições de início e fim de cada ocorrência da palavra (strBusca) no texto base (texto).
  @saida
     Um número n >= 0 correspondente a quantidade de ocorrências encontradas.
-    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
+    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. 
+    
+    Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
         posicoes[0] = 13;
         posicoes[1] = 16;
         Observe que o índice da posição no texto deve começar ser contado a partir de 1.
@@ -346,8 +348,10 @@ int q3(char *texto, char c, int isCaseSensitive){
 
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
-    int qtdOcorrencias = -1;
-
+    int qtdOcorrencias = 0;
+    
+    
+    
     return qtdOcorrencias;
 
 }
@@ -360,15 +364,36 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]){
     uma int num.
  @saida
     Número invertido
+    
+    printf("%d\n",q5(345) == 543);
+    printf("%d\n",q5(78) == 87);
+    printf("%d\n",q5(3) == 3);
+    printf("%d\n",q5(5430) == 345);
  */
 
 int q5(int num){
+    
+   int inverso = 0; // Inicializa com 0 para a primeira interação
+   int aux;
+   
+    /*  
+        Pegar o resto por 10
+        Multiplica o inverso por 10 e soma com o resto por 10;
+        num vai ser igual a num dividido por 10
+     */
+        
+   while (num > 0){
 
-    return num;
+        aux = num % 10;
+        inverso = inverso * 10 + aux; // Modo Incorreto = inverso *= 10 + aux;
+        num /= 10;
+   }
+
+   return inverso;
 }
 
 /*
- Q5 = ocorrência de um número em outro
+ Q6 = ocorrência de um número em outro
  @objetivo
     Verificar quantidade de vezes da ocorrência de um número em outro
  @entrada
@@ -379,5 +404,7 @@ int q5(int num){
 
 int q6(int numerobase, int numerobusca){
     int qtdOcorrencias;
+
+        
     return qtdOcorrencias;
 }

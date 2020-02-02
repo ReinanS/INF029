@@ -1,36 +1,24 @@
 #include <stdio.h>
 
-int inverterNumero(int num);
+int q5(int num);
 
 void main(){
     
-    int num = 12345;
+    int num = 123450;
     
-    int retorno = inverterNumero(num);
+    int retorno = q5(num);
     
     printf("\n%d\n", retorno);
 }
 
-int inverterNumero(int num){ // 2352
+int q5(int num){
     
-    int auxiliar = num % 10;
-    num /= 10;
-     
-    if (num > 0){
-        
-        do{
-           auxiliar *= 10;
-           auxiliar += num % 10; 
-           num /= 10;
-           
-        }while(num > 0);
-    
-        
-    }else{
-       
+    int inverso = 0, guard;
+
+    while(num > 0) { //enquanto for maior que 0, o número sera dividido e seu resto sera jogado numa variável que multiplicara seu valor por 10 a cada loop 
+        guard = num % 10;
+        inverso *=  (10 + guard); 
+        num /= 10;
     }
-    
-    return auxiliar;
+    return inverso; //retorna o numero invertido
 }
-
-
