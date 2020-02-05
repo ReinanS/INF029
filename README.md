@@ -1,2 +1,2 @@
 # INF029
-Repository dedicated to Discipline Introduction to Programming Logic.
+Repository dedicated to Programming Laboratory Discipline
