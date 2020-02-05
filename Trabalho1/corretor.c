@@ -18,7 +18,7 @@
 #include<string.h>
 
 //renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.c
-#include "PrimeiroUltimoNomeMATRICULA.h"
+#include "ReinanSantos-2019116042-T1.h"
 
 void testSomar(); //função utilizada para testes
 void testFatorial(); //função utilizada para testes
@@ -30,13 +30,13 @@ void testQ5();
 void testQ6();
 
 int main(){
-   // testSomar();
-   // testFatorial();
-   // testQ1();
-   // testQ2();
-   // testQ3();
-   // testQ4();
-   // testQ5();
+    // testSomar();
+    // testFatorial();
+    testQ1();
+    testQ2();
+    testQ3();
+    testQ4();
+    testQ5();
     testQ6();
 }
 
@@ -95,7 +95,7 @@ void testQ2(){
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
     printf("%d\n",retorno == 2);
 
-    strcpy(datainicial,"01/3/2015");
+    strcpy(datainicial,"01/3/2016");
     strcpy(datafinal,"40/06/2016");
     retorno = q2(datainicial, datafinal, &qtdDias, &qtdMeses, &qtdAnos);
     printf("%d\n",retorno == 3);
@@ -128,12 +128,6 @@ void testQ3(){
     printf("%d\n",q3(str, 'l', 1) == 0);
     printf("%d\n",q3(str, 'l', 0) == 1);
     printf("%d\n",q3(str, 'L', 0) == 1);
-    
-    strcpy(str,"Reinan de Souza Albuquerque");
-    printf("%d\n",q3(str, 'a', 0) == 3);
-    printf("%d\n",q3(str, 'a', 1) == 2);
-    printf("%d\n",q3(str, 'A', 1) == 1);
-    printf("%d\n",q3(str, 'A', 0) == 3);
 }
 
 void testQ4(){
@@ -181,6 +175,5 @@ void testQ6(){
     printf("%d\n",q6(34567368, 4576) == 0);
     printf("%d\n",q6(3539343, 3) == 4);
     printf("%d\n",q6(3539343, 39) == 1);
-    printf("%d\n",q6(34567368, 4567) == 1);
 
 }

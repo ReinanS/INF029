@@ -11,10 +11,10 @@
 //  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
 
 //  ----- Dados do Aluno -----
-//  Nome:
-//  email:
-//  Matrícula:
-//  Semestre:
+//  Nome: Reinan de Souza Santos
+//  email: reinandesouza01@gmail.com
+//  Matrícula: 2019116042
+//  Semestre:2
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
 // Última atualização: 20/06/2018 - 19/08/2016
@@ -115,9 +115,10 @@ int q1(char *data){
         
         if (cont_Mes > 1) return 0; 
         
-        if (procura_char(sMes[cont_Mes]) == 1) return 0; // 
+        if (procura_char(sMes[cont_Mes]) == 1) return 0;
         
     }
+
     
     sMes[j] = '\0';
     j++;
@@ -153,7 +154,7 @@ int q1(char *data){
 int valida_data_numeros(int dia, int mes, int ano){
     
 		 
-    if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1 || ano > 2020)
+    if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (ano < 1 || ano > 2020))
         return 0;
     
     if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11) )
@@ -202,6 +203,7 @@ int q2(char *datainicial, char *datafinal, int *qtdDias, int *qtdMeses, int *qtd
     int nDias, nMeses, nAnos;
 
 
+    // Validando Datas
     if (q1(datainicial) == 0)
         return 2;
     if (q1(datafinal) == 0)
@@ -319,14 +321,15 @@ int q3(char *texto, char c, int isCaseSensitive){
     
     if (isCaseSensitive == 1)
         for (i = 0; i < strlen(texto); i++)
-            if (c == texto[i])
-                qtdOcorrencias++;
+            if (texto[i] == c)
+                qtdOcorrencias ++;
     
     if (isCaseSensitive != 1)
         for(i = 0; i < strlen(texto); i++)
-            if (c == texto[i] || toupper(c) == texto[i] || tolower(c) == texto[i]) // Toupper = Caractere em Maiúsculo; Tolowe = Caractere em Minúsculo.
+            if (texto[i] == c || texto[i] == toupper(c) || texto[i] == tolower(c)) // Toupper = Caractere em Maiúsculo; Tolower = Caractere em Minúsculo.
                 qtdOcorrencias++;
     
+
     return qtdOcorrencias;
 }
 
@@ -343,17 +346,47 @@ int q3(char *texto, char c, int isCaseSensitive){
     Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
         posicoes[0] = 13;
         posicoes[1] = 16;
-        Observe que o índice da posição no texto deve começar ser contado a partir de 1.
+        Observe que o índice da posição no texto deve começar ser Ado a partir de 1.
         O retorno da função, n, nesse caso seria 1;
 
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30]){
-    int qtdOcorrencias = 0;
-    
-    
-    
-    return qtdOcorrencias;
 
+
+    int A, B,C, acentos;
+    int qtdOcorrencias; 
+    
+    A = B = C = acentos = qtdOcorrencias = 0; // Atribuindo 0 em todas as variáveis
+
+    for(A = 0; A <strlen(strTexto); A ++){
+
+       if(strBusca[0] == strTexto[A]){ // Comparando posicao Inicial
+           
+           while(strBusca[B] == strTexto[A]){
+             A ++;
+             B ++;             
+          }
+        
+          if(B == strlen(strBusca)){             
+           
+            posicoes[C] = A - (strlen(strBusca) - 1) - acentos; // Posicao Inicial
+            C ++;
+           
+            posicoes[C] = A - acentos; // Posicao Final
+            C ++;            
+          }
+          
+          B = 0; // Necessário para  as novas palavras iguais
+       }
+       
+       if(strTexto[A] < 0 && strTexto[A + 1] < 0) // Contando Acentos que estão na posicao A do texto e também na seguinte
+           acentos ++; 
+    }
+   
+
+    qtdOcorrencias = C/2;
+
+    return qtdOcorrencias;
 }
 
 /*
@@ -406,7 +439,7 @@ int q6(int numerobase, int numerobusca){
 
    while (aux != 0){ // Enquanto numero de busca for diferente de zero, ele vai continuar dividindo e armazendo o tamanho do numero
     tamanho = tamanho * 10;
-    aux = aux / 10;
+    aux /= 10;
    }
 
    aux = numerobase;
@@ -418,7 +451,7 @@ int q6(int numerobase, int numerobusca){
         aux = aux / tamanho;
    
    }else
-        aux = aux / 10; // Separando o numero com uma posição
+        aux /= 10; // Separando o numero com uma posição
  }
    return qtdOcorrencias;
     
