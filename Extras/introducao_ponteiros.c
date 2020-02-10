@@ -10,7 +10,7 @@ void apagar_tela();
 int ler_idade(int *idade);
 void imprimir_idade(int *idade);
 int ler_sexo(char *sexo);
-void imprimir_sexo(char *sexo);
+void imprimir_sexo(char* sexo);
 int ler_salario(float *salario);
 void imprimir_salario(float *salario);
 int ler_nome(char *nome);
@@ -48,7 +48,6 @@ void main(){
         printf("Digite a Opcao: ");
         scanf("%d", &opcao);
         getchar();
-        fflush(stdin);
         
         switch(opcao){
             
