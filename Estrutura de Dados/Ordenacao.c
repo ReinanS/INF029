@@ -19,6 +19,8 @@ void main(){
     preencher_vetor(vet);
 
     int recebe_bubble = bubble(vet);
+
+    printf("\n%d \n", recebe_bubble);
  }
 
  void preencher_vetor (int vet[]){
@@ -48,9 +50,12 @@ void imprimir_vetor (int vet[]){
  				aux = vet[j];
  				vet[j] = vet[j + 1];
  				vet[j + 1] = aux;
- 			}
 
+ 				cont ++;
+ 			}
  	imprimir_vetor(vet);
+
+ 	return cont;
 
  }
 
