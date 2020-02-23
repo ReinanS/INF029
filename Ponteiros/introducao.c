@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct pessoa {
+    
+    int idade;
+    float salario;
+    char sexo, nome[50];
+    struct pessoa *proximo;
+
+}pessoa;
+
 /*
     Cadastrar 5 Pessoas
     op1 = 4 vetores
@@ -19,21 +28,9 @@ void imprimir_nome(char *nome);
 
 void main(){
     
-    int opcao, idade = 0;
-    char sexo, nome [50];
-    float salario = 0;
+    pessoa *cadastro = (pessoa*)malloc(sizeof(pessoa));
+    cadastro = NULL;
     
-    int *p_idade;
-    char *p_sexo, *p_nome;
-    float *p_salario;
-    
-    int recebe_idade, recebe_sexo, recebe_nome, recebe_salario = 0;
-
-    p_idade = &idade;
-    p_sexo = &sexo;
-    p_salario = &salario;
-    p_nome = &nome[50];
-
 
     
     do {

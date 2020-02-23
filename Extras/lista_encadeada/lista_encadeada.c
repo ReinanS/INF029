@@ -1,52 +1,149 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-typedef struct celula {
+/*FEATURES - 
+    Adicionar na lista de forma que o primeiro elemento inserido continue sendo o primeiro ...
 
-	int conteudo;
-	struct celula *proximo;
+    Adicionar função que ao inserir na lista retorna o endereço, e permite que a próxima posição seja
+    inserida depois daquele endereço
 
-}celula;
+    Adicionar Buscar, Remover, Listar específico, Ordenar
 
-void insere_na_lista(int x, celula *p);
-void imprime_lista(celula *le);
+    Buscar elemento usando recursividade
+    
+    Contar elementos da lista usando recursividade
+*/
+
+typedef struct Celula{
+    int conteudo;
+    struct Celula *proximo;
+} Celula;
+
+Celula *inicio = NULL;
+
+int contList(Celula *pCelula);
+int inserirNaLista(int x);
+void busca();
+Celula *buscar_recursivo(int x, Celula *inicio);
+void remover();
+void printarLista();
 
 void main(){
+    int i;
 
-	celula *inicio = NULL; // Inicializando lista vazia
-	
-	int a = 5;
-//	celula *novo = insere(inicio, a);
+    for (i=1; i<=10;i++)
+        inserirNaLista(i*2); //para testar a lista vazia basta comentar aqui
 
-	insere_na_lista(a, inicio);
-	imprime_lista(inicio);
+    printarLista();
+
+    buscar_recursivo(7, inicio);
+    printf("%d \n", contList(inicio));
 }
 
-void insere_na_lista(int x, celula *p){
+int contList(Celula *le){
+    
+    int cont = 0;
 
-	// Supõe-se que p!= NULL;
+    while(le!=NULL){
+        cont++;
+        le = le->proximo;
+    }
+    return cont;
+}   
 
-	celula *novo = (celula*)malloc(sizeof(celula));
-	novo ->conteudo = x;
-	novo -> proximo = p ->proximo;
-	p -> proximo = novo;
+int inserirNaLista(int x){ //a função recebe apenas o valor que quero inserir na lista
+  
+    Celula *n;
+
+    n = (Celula*) malloc(sizeof(Celula*));
+
+    if(n == NULL)
+        return 0;
+    
+    n->conteudo = x;
+    n->proximo = NULL;
+
+    if(inicio == NULL){
+        inicio = n;
+
+    }else{
+        n->proximo = inicio;
+        inicio = n;
+    }
+
+    return 1;
 }
 
-celula* insere (celula *p, int x){
+void busca(){
 
-	celula *novo = (celula*) malloc(sizeof(celula));
-	novo -> conteudo = x;
-	novo -> proximo = p;
+  int x;
+  Celula *busca = inicio;
 
-	return novo;
+  printf("Digite o valor a ser buscado: ");
+  scanf("%d", &x);
+
+  while(busca != NULL){
+
+    if(busca->conteudo == x){
+      printf("Achei \n");
+      break;
+    }
+
+    busca = busca->proximo;
+  }
 }
 
-void imprime_lista(celula *le){
+Celula *buscar_recursivo(int x, Celula *inicio){
 
-	if (le != NULL){
-		printf("%d \n", le -> conteudo);
-		imprime_lista(le -> proximo);
-	
-	}else
-		printf("Fim da Lista \n\n");
+  if (inicio == NULL)
+    return NULL;
+
+  if (inicio->conteudo == x){
+    printf("Achei \n");
+    return inicio;
+  }
+
+  return buscar_recursivo(x,inicio->proximo);
+}
+
+void remover(){
+
+  int x;
+
+  printf("Digite o o valor a ser removido: ");
+  scanf("%d", &x);
+
+  Celula *busca = inicio;
+  Celula *anterior = NULL;
+
+  while (busca != NULL){
+    if(busca -> conteudo == x){
+      if (busca == inicio)
+        inicio = busca->proximo;
+      else
+        anterior->proximo = busca->proximo;
+      
+      free(busca);
+      break;
+    }
+    anterior = busca;
+    busca = busca->proximo;
+  }
+}
+
+void printarLista(){
+    Celula *ptr;
+
+  if (inicio == NULL){
+    printf("\n--- fim da lista ---\n\n");
+    return;
+  }
+
+  // Caso a lista nao esteja vazia
+  ptr = inicio;
+  while (ptr !=NULL) { 
+     printf(" %d ->",ptr->conteudo);
+     ptr = ptr->proximo;
+  }
+  printf("--- fim da lista ---\n\n");
 }
