@@ -113,9 +113,11 @@ int remover(Celula *le){
   			anterior->proximo = busca->proximo;
 
   		free(busca);
+  		
   		printf("Removido\n");
   		return 1;
   	}
+
   }
 
   printf("Nao Removido\n");
