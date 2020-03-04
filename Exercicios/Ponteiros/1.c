@@ -14,7 +14,7 @@ void main(){
 	scanf("%d", &a);
 	scanf("%f", &b);
 	scanf("%lf", &d);
-	scanf(" %c", &c); // Acrescentei um espcaço antes
+	scanf(" %c", &c); // Acrescentei um espcaço antes se não ele não lê o char
 	getchar(); // Para ser possível ler a string
 	fgets( str, 10, stdin);
 
