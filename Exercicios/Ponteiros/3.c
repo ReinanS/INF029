@@ -11,12 +11,11 @@ void main(){
 	int vet[n];
 
 	ler_vetor(vet);
-	imprimir_vetor(vet);
 	ordenar(vet);
 	imprimir_vetor(vet);
 }
 
-void ler_vetor(int *vet){
+void ler_vetor(int vet[]){
 
 	int i;
 
@@ -26,17 +25,20 @@ void ler_vetor(int *vet){
 	}
 }
 
-void ordenar(int *vet){
+void ordenar(int vet[]){ // USO DO BUBBLE SORT
 
-	int i, j;
-	int maior, menor;
+	int i, j, aux;
 
-	for (i = 0; i < n; i++)
-		if (vet[i + 1] < vet[i])
-			vet[i] = vet[i + 1];
+	for (i = n -1; i > 0; i--)
+		for (j = 0; j < i; j++)
+			if(vet[j] > vet[j + 1]){
+				aux = vet[j];
+				vet[j] = vet[j + 1];
+				vet[j + 1] = aux;
+			}
 }
 
-void imprimir_vetor(int *vet){
+void imprimir_vetor(int vet[]){
 
 	int i;
 
