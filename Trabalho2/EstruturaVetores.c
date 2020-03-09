@@ -77,28 +77,26 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int valor, int posicao){
 
-    int retorPrincipal = 0;
-    int existeEstruturaAuxiliar = 0;
-    int temEspaco = 0;
-    int posicao_invalida = 0;
+  // TESTE 4, 2
+    
+    if (posicao < 1 || posicao > 10)
+        return POSICAO_INVALIDA;
+  
+    if (vetorPrincipal[posicao-1].auxiliar == NULL )  
+        return SEM_ESTRUTURA_AUXILIAR;
+    
+    int contador = vetorPrincipal[posicao-1].contador;
 
-    if (posicao_invalida)
-        retorPrincipal = POSICAO_INVALIDA;
-    else{
-        // testar se existe a estrutura auxiliar
-        if (existeEstruturaAuxiliar){
-          if (temEspaco){
-              //insere
-              retorPrincipal = SUCESSO;
-          }else{
-              retorPrincipal = SEM_ESPACO;
-          }
-        }else{
-          retorPrincipal = SEM_ESTRUTURA_AUXILIAR;
-        }
-    }
+    if (contador >= vetorPrincipal[posicao-1].tamanho)
+      return SEM_ESPACO;
 
-    return retorPrincipal;
+    vetorPrincipal[posicao-1].auxiliar[contador] = valor;
+    vetorPrincipal[posicao-1].contador ++;
+
+    return SUCESSO;
+    
+
+    
 
 }
 
@@ -295,13 +293,23 @@ void esvaziarPrincipal(Principal vet[]){
 
     for (i = 0; i < TAM; i++){
         vet[i].auxiliar = NULL;
+        vet[i].contador = 0;
+        vet[i].tamanho = 0;
     }
+
+
     
 }
 
 void inicializar(){
- 
-   esvaziarPrincipal(vetorPrincipal);
+
+  int i;
+
+  for (i = 0; i < TAM; i++){
+    vetorPrincipal[i].auxiliar = NULL;
+    vetorPrincipal[i].contador = 0;
+    vetorPrincipal[i].tamanho = 0;
+  }
     
 }
 
