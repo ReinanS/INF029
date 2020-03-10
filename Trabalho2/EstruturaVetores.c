@@ -24,46 +24,32 @@ RertoPrincipal (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
     SEM_ESPACO_DE_MEMORIA - Sem espaço de memória
     TAMANHO_INVALIDO - o tamanho tem inteiro maior ou igual a 1
+
 */
 int criarEstruturaAuxiliar(int tamanho, int posicao){
 
-   int retorPrincipal = 0;
-   int limite = 100; // LIMITE MÁXIMO DO TAMANHO DA ESTRUTURA AUXILIAR
+  int limite = 100;
+  
+  if (posicao < 1 || posicao > 10)
+    return POSICAO_INVALIDA;
 
-    // na posicao pode já existir estrutura auxiliar
-    if (vetorPrincipal[posicao].auxiliar != NULL){
-        retorPrincipal = JA_TEM_ESTRUTURA_AUXILIAR;
+  if (vetorPrincipal[posicao-1].auxiliar != NULL)
+  return JA_TEM_ESTRUTURA_AUXILIAR;
+  
+  if (tamanho > limite)
+    return SEM_ESPACO_DE_MEMORIA;
+  
+  if (tamanho < 1)
+    return TAMANHO_INVALIDO;
+  
+  vetorPrincipal[posicao-1].auxiliar = (int*)malloc(tamanho*sizeof(int)); // AUXILIAR É UM PONTEIRO DO TIPO INTEIRO
 
-    // se posição é um valor válido {entre 1 e 10}
-    }else if (posicao < 1 || posicao > 10){
-        retorPrincipal = POSICAO_INVALIDA;
-    
-    // o tamanho ser muito grande
-    }else if (tamanho > limite){
-        retorPrincipal = SEM_ESPACO_DE_MEMORIA;
-    
-    // o tamanho nao pode ser menor que 1
-    }else if (tamanho < 1){
-        retorPrincipal = TAMANHO_INVALIDO;
-    
-    // deu tudo certo, crie
-    }else{
-        
-        vetorPrincipal[posicao].auxiliar = (int*)malloc(tamanho*sizeof(int)); // AUXILIAR É UM PONTEIRO DO TIPO INTEIRO
+  if (vetorPrincipal[posicao-1].auxiliar == NULL)
+      return SEM_ESPACO_DE_MEMORIA;
 
-        if (vetorPrincipal[posicao].auxiliar == NULL)
-            retorPrincipal = SEM_ESPACO_DE_MEMORIA;
-        
-        else{
-            
-            vetorPrincipal[posicao].tamanho = tamanho;
-            retorPrincipal = SUCESSO;
-        }
-
-    }
-    
-    return retorPrincipal;
-
+  vetorPrincipal[posicao-1].tamanho = tamanho;
+  
+  return SUCESSO;
 }
 
 /*
@@ -73,16 +59,17 @@ RertoPrincipal (int)
     SEM_ESPACO - não tem espaço
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
+    // 12445
 CONSTANTES
+    JÁ TEM 
 */
 int inserirNumeroEmEstrutura(int valor, int posicao){
 
-  // TESTE 4, 2
-    
     if (posicao < 1 || posicao > TAM)
         return POSICAO_INVALIDA;
+
   
-    if (vetorPrincipal[posicao-1].auxiliar == NULL )  
+    if (vetorPrincipal[posicao-1].auxiliar == NULL )
         return SEM_ESTRUTURA_AUXILIAR;
     
     int contador = vetorPrincipal[posicao-1].contador;
@@ -94,10 +81,6 @@ int inserirNumeroEmEstrutura(int valor, int posicao){
     vetorPrincipal[posicao-1].contador ++;
 
     return SUCESSO;
-    
-
-    
-
 }
 
 /*
@@ -112,15 +95,15 @@ RertoPrincipal (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao){
+    
+    if (posicao < 1 || posicao > TAM)
+        return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
       return SEM_ESTRUTURA_AUXILIAR;
   
     if (vetorPrincipal[posicao-1].contador == 0) // DEPOIS VERIFICAR SE EXISTE OUTRA FORMA
         return ESTRUTURA_AUXILIAR_VAZIA;
-    
-    if (posicao < 1 || posicao > TAM)
-        return POSICAO_INVALIDA;
 
     vetorPrincipal[posicao-1].contador --; // EXCLUSÃO LÓGICA
   
@@ -141,29 +124,45 @@ RertoPrincipal (int)
 
 */
 int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
-  
-    if (vetorPrincipal[posicao-1].contador == 0)
-        return ESTRUTURA_AUXILIAR_VAZIA;
+    
+    // 4,2
 
-    if (vetorPrincipal[posicao-1].auxiliar == NULL)
-        return SEM_ESTRUTURA_AUXILIAR;
+    int i, j;
+    int existe = 0;
+    int aux;
 
     if (posicao < 1 || posicao > 10)
         return POSICAO_INVALIDA;
 
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
+
+    if (vetorPrincipal[posicao-1].contador == 0)
+        return ESTRUTURA_AUXILIAR_VAZIA;
+
     int contador = vetorPrincipal[posicao-1].contador;
-    int i, existe = 0;
+    // [5]
 
-    for (i = 0; i < contador; i++)
-        if (vetorPrincipal[posicao-1].auxiliar[contador] == valor){
-            vetorPrincipal[posicao-1].auxiliar[contador] = vetorPrincipal[posicao-1].auxiliar[contador+1];
-            vetorPrincipal[posicao-1].contador--;
-            existe = 1;
+    if (contador == 1 && vetorPrincipal[posicao-1].auxiliar[0] == valor){
+      existe = 1;
+    
+    }
+    else
+      for (i = 0; i < contador-1; i++)
+        
+        if (vetorPrincipal[posicao-1].auxiliar[i] == valor){
+          aux = vetorPrincipal[posicao-1].auxiliar[i];
+          vetorPrincipal[posicao-1].auxiliar[i] = vetorPrincipal[posicao-1].auxiliar[i+1];
+          vetorPrincipal[posicao-1].auxiliar[i+1] = aux;
+
+          existe = 1;
         }
-
+    
     if (existe == 0)
         return NUMERO_INEXISTENTE;
-
+    else
+      vetorPrincipal[posicao-1].contador --;
+    
     return SUCESSO;
 }
 
@@ -188,10 +187,7 @@ RetorPrincipal (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
 
-    int retorPrincipal = 0;
-
-
-    return retorPrincipal;
+   
 
 }
 
