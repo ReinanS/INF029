@@ -17,10 +17,10 @@ void testeListaEncadeada();
 
 int main(){
     inicializar();
-  //  testeInserirSemNada();
+    testeInserirSemNada();
     testeCriarEstrutura();
-  //  testeInserirComEstrutura();
-  //  testeExcluir();
+    testeInserirComEstrutura();
+    testeExcluir();
   //  testeListar();
   //  testeRetornarTodosNumeros();
   //  testeMudarTamanhoEstrutura();
@@ -28,7 +28,7 @@ int main(){
   //  finalizar();
 
 } 
-int ligado = 0;
+int ligado = 1;
 void show_log(char *str){
     if (ligado)
         printf("###%s###\n", str);
@@ -78,7 +78,6 @@ void testeExcluir(){
     printf("%d\n",excluirNumeroDoFinaldaEstrutura(2) == SUCESSO);
     printf("%d\n",excluirNumeroDoFinaldaEstrutura(2) == ESTRUTURA_AUXILIAR_VAZIA);
 } 
-
 /*
 2 [ , , ]
 */

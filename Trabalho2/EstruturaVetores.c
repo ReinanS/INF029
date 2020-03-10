@@ -79,7 +79,7 @@ int inserirNumeroEmEstrutura(int valor, int posicao){
 
   // TESTE 4, 2
     
-    if (posicao < 1 || posicao > 10)
+    if (posicao < 1 || posicao > TAM)
         return POSICAO_INVALIDA;
   
     if (vetorPrincipal[posicao-1].auxiliar == NULL )  
@@ -112,8 +112,19 @@ RertoPrincipal (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao){
-  int retorPrincipal = SUCESSO;
-  return retorPrincipal;
+
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+      return SEM_ESTRUTURA_AUXILIAR;
+  
+    if (vetorPrincipal[posicao-1].contador == 0) // DEPOIS VERIFICAR SE EXISTE OUTRA FORMA
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    
+    if (posicao < 1 || posicao > TAM)
+        return POSICAO_INVALIDA;
+
+    vetorPrincipal[posicao-1].contador --; // EXCLUSÃO LÓGICA
+  
+  return SUCESSO;
 }
 
 /*
@@ -130,8 +141,30 @@ RertoPrincipal (int)
 
 */
 int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
-  int retorPrincipal = SUCESSO;
-  return retorPrincipal;
+  
+    if (vetorPrincipal[posicao-1].contador == 0)
+        return ESTRUTURA_AUXILIAR_VAZIA;
+
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
+
+    if (posicao < 1 || posicao > 10)
+        return POSICAO_INVALIDA;
+
+    int contador = vetorPrincipal[posicao-1].contador;
+    int i, existe = 0;
+
+    for (i = 0; i < contador; i++)
+        if (vetorPrincipal[posicao-1].auxiliar[contador] == valor){
+            vetorPrincipal[posicao-1].auxiliar[contador] = vetorPrincipal[posicao-1].auxiliar[contador+1];
+            vetorPrincipal[posicao-1].contador--;
+            existe = 1;
+        }
+
+    if (existe == 0)
+        return NUMERO_INEXISTENTE;
+
+    return SUCESSO;
 }
 
 // se posição é um valor válido {entre 1 e 10}

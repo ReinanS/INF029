@@ -14,6 +14,7 @@ struct principal{
 
 	int *auxiliar; // VAI APONTAR PARA A ESTRUTURA AUXILIAR
 	int tamanho; // TAMANHO DA ESTRUTURA AUXILIAR
+	int contador; // ELE VAI CONTAR A QUANTIDADE DE ELEMENTOS NO VETOR
 };
 
 typedef struct principal Principal;
