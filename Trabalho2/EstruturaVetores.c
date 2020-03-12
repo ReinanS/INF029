@@ -34,10 +34,7 @@ int criarEstruturaAuxiliar(int tamanho, int posicao){
     return POSICAO_INVALIDA;
 
   if (vetorPrincipal[posicao-1].auxiliar != NULL)
-  return JA_TEM_ESTRUTURA_AUXILIAR;
-  
-  if (tamanho > limite)
-    return SEM_ESPACO_DE_MEMORIA;
+    return JA_TEM_ESTRUTURA_AUXILIAR;
   
   if (tamanho < 1)
     return TAMANHO_INVALIDO;
