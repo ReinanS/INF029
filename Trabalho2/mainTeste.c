@@ -21,7 +21,7 @@ int main(){
     testeCriarEstrutura();
     testeInserirComEstrutura();
     testeExcluir();
-  //  testeListar();
+    testeListar();
   //  testeRetornarTodosNumeros();
   //  testeMudarTamanhoEstrutura();
   //  testeListaEncadeada();

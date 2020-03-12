@@ -15,6 +15,23 @@ void dobrar(int *x){
 }
 
 /*
+Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
+
+*/
+void inicializar(){
+
+  int i;
+
+  for (i = 0; i < TAM; i++){
+    vetorPrincipal[i].auxiliar = NULL;
+    vetorPrincipal[i].contador = 0;
+    vetorPrincipal[i].tamanho = 0;
+  }
+    
+}
+
+
+/*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
 
@@ -27,10 +44,8 @@ RertoPrincipal (int)
 
 */
 int criarEstruturaAuxiliar(int tamanho, int posicao){
-
-  int limite = 100;
   
-  if (posicao < 1 || posicao > 10)
+  if (posicao < 1 || posicao > TAM)
     return POSICAO_INVALIDA;
 
   if (vetorPrincipal[posicao-1].auxiliar != NULL)
@@ -65,7 +80,6 @@ int inserirNumeroEmEstrutura(int valor, int posicao){
     if (posicao < 1 || posicao > TAM)
         return POSICAO_INVALIDA;
 
-  
     if (vetorPrincipal[posicao-1].auxiliar == NULL )
         return SEM_ESTRUTURA_AUXILIAR;
     
@@ -75,7 +89,7 @@ int inserirNumeroEmEstrutura(int valor, int posicao){
       return SEM_ESPACO;
 
     vetorPrincipal[posicao-1].auxiliar[contador] = valor;
-    vetorPrincipal[posicao-1].contador ++;
+    vetorPrincipal[posicao-1].contador ++; // ELE CONSEGUIU COLOCAR O VALOR NA ESTRUTURA
 
     return SUCESSO;
 }
@@ -121,14 +135,12 @@ RertoPrincipal (int)
 
 */
 int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
-    
-    // 4,2
 
     int i, j;
     int existe = 0;
     int aux;
 
-    if (posicao < 1 || posicao > 10)
+    if (posicao < 1 || posicao > TAM)
         return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
@@ -138,7 +150,6 @@ int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
         return ESTRUTURA_AUXILIAR_VAZIA;
 
     int contador = vetorPrincipal[posicao-1].contador;
-    // [5]
 
     if (contador == 1 && vetorPrincipal[posicao-1].auxiliar[0] == valor){
       existe = 1;
@@ -182,9 +193,28 @@ RetorPrincipal (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
+
+void getDadosAux(int posicao, int vetorAux[], int n){
+
+    int i;
+
+    for (i = 0; i < n; i++)
+        vetorAux[i] = vetorPrincipal[posicao-1].auxiliar[i];
+}
+
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
 
-   
+    if (posicao < 1 || posicao > TAM)
+        return POSICAO_INVALIDA;
+
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
+
+    int contador = vetorPrincipal[posicao-1].contador;
+
+    getDadosAux(posicao,vetorAux, contador);
+
+    return SUCESSO;
 
 }
 
@@ -198,13 +228,35 @@ RertoPrincipal (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
+
+void bubble(int vet[], int n){
+
+    int i, j, aux;
+
+    for (i = n -1; i > 0; i--)
+        for (j = 0; j < i; j++)
+            if(vet[j] > vet[j + 1]){
+                aux = vet[j];
+                vet[j] = vet[j + 1];
+                vet[j + 1] = aux;
+            }
+}
+
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]){
 
-    int retorPrincipal = 0;
+    if (posicao < 1 || posicao > TAM)
+        return POSICAO_INVALIDA;
 
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
 
-    return retorPrincipal;
+    int contador = vetorPrincipal[posicao-1].contador;
 
+    getDadosAux(posicao,vetorAux,contador);
+
+    bubble(vetorAux, contador);
+
+    return SUCESSO;
 }
 
 /*
@@ -306,37 +358,6 @@ RetorPrincipal
 void destruirListaEncadeadaComCabecote(Principal* inicio){
    
 
-}
-
-/*
-Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
-
-*/
-
-void esvaziarPrincipal(Principal vet[]){
-
-    int i;
-
-    for (i = 0; i < TAM; i++){
-        vet[i].auxiliar = NULL;
-        vet[i].contador = 0;
-        vet[i].tamanho = 0;
-    }
-
-
-    
-}
-
-void inicializar(){
-
-  int i;
-
-  for (i = 0; i < TAM; i++){
-    vetorPrincipal[i].auxiliar = NULL;
-    vetorPrincipal[i].contador = 0;
-    vetorPrincipal[i].tamanho = 0;
-  }
-    
 }
 
 /*
