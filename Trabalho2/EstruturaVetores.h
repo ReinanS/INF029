@@ -10,11 +10,19 @@
 #define PrincipalVO_TAMANHO_INVALIDO -10
 #define TODAS_ESTRUTURAS_AUXILIARES_VAZIAS -11
 
-struct principal{
+struct EstPrincipal{
 
 	int *auxiliar; // VAI APONTAR PARA A ESTRUTURA AUXILIAR
 	int tamanho; // TAMANHO DA ESTRUTURA AUXILIAR
 	int contador; // ELE VAI CONTAR A QUANTIDADE DE ELEMENTOS NO VETOR
+};
+
+typedef struct EstPrincipal EstPrincipal;
+
+struct principal{
+
+	int conteudo;
+	struct principal *prox;
 };
 
 typedef struct principal Principal;

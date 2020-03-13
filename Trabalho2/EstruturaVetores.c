@@ -5,7 +5,7 @@
 
 #include "EstruturaVetores.h"
 
-Principal vetorPrincipal[TAM];
+EstPrincipal vetorPrincipal[TAM];
 
 void dobrar(int *x){
 
@@ -336,7 +336,17 @@ RetorPrincipal (Principal*)
 */
 Principal* montarListaEncadeadaComCabecote(){
 
-    return NULL;
+    Principal *inicio = (Principal*)malloc(sizeof(Principal)); 
+
+    if (inicio == NULL){
+
+        printf("Sem Memória \n");
+        return NULL;
+    }
+
+    inicio->prox = NULL;
+
+    return inicio;
 
 }
 
