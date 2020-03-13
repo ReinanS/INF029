@@ -265,14 +265,30 @@ os números devem ser armazenados em vetorAux
 
 RertoPrincipal (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
-    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
-    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
+    TODAS AS ESTRUTURA AUXILIARES VAZIAS
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
 
-    int retorPrincipal = 0;
-    return retorPrincipal;
+    int aux = 1;
+    int i, j, contador;
 
+    for (i = 0; i < TAM; i++)
+        if (vetorPrincipal[i].auxiliar == NULL)
+            aux ++;
+        
+        else{
+            contador = vetorPrincipal[i].contador;
+
+            for (j = 0; j < contador; j++)
+                vetorAux[j] = vetorPrincipal[i].auxiliar[j];
+
+            j++;
+        }
+
+    if (aux == TAM)
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+
+    return SUCESSO;
 }
 
 /*
@@ -284,10 +300,25 @@ RertoPrincipal (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
+
+void bubbleTodas(int vet[]){
+
+    int i, j, aux;
+
+    for (i = n -1; i > 0; i--)
+        for (j = 0; j < i; j++)
+            if(vet[j] > vet[j + 1]){
+                aux = vet[j];
+                vet[j] = vet[j + 1];
+                vet[j + 1] = aux;
+            }
+}
+
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]){
 
-    int retorPrincipal = 0;
-    return retorPrincipal;
+    getDadosDeTodasEstruturasAuxiliares(vetorAux);
+
+    bubble(vetorAux);
 
 }
 
