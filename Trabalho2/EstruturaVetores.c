@@ -28,8 +28,15 @@ void inicializar(){
     vetorPrincipal[i].tamanho = 0;
   }
     
-}
+} 
 
+int posicaoInvalida(int posicao){
+
+    if (posicao < 1 || posicao > TAM)
+        return 1;
+    else
+        return 0;
+}
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -45,10 +52,10 @@ RertoPrincipal (int)
 */
 int criarEstruturaAuxiliar(int tamanho, int posicao){
   
-  if (posicao < 1 || posicao > TAM)
+  if (posicaoInvalida(posicao) == 1)
     return POSICAO_INVALIDA;
 
-  if (vetorPrincipal[posicao-1].auxiliar != NULL)
+  if ((vetorPrincipal[posicao-1].auxiliar != NULL))
     return JA_TEM_ESTRUTURA_AUXILIAR;
   
   if (tamanho < 1)
@@ -77,7 +84,7 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int valor, int posicao){
 
-    if (posicao < 1 || posicao > TAM)
+    if (posicaoInvalida(posicao) == 1)
         return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL )
@@ -107,13 +114,13 @@ RertoPrincipal (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao){
     
-    if (posicao < 1 || posicao > TAM)
+    if (posicaoInvalida(posicao) == 1)
         return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
-      return SEM_ESTRUTURA_AUXILIAR;
+        return SEM_ESTRUTURA_AUXILIAR;
   
-    if (vetorPrincipal[posicao-1].contador == 0) // DEPOIS VERIFICAR SE EXISTE OUTRA FORMA
+    if (vetorPrincipal[posicao-1].contador == 0) // DEPOIS TENHO QUE VERIFICAR SE EXISTE OUTRA FORMA
         return ESTRUTURA_AUXILIAR_VAZIA;
 
     vetorPrincipal[posicao-1].contador --; // EXCLUSÃO LÓGICA
@@ -140,7 +147,7 @@ int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
     int existe = 0;
     int aux;
 
-    if (posicao < 1 || posicao > TAM)
+    if (posicaoInvalida(posicao) == 1)
         return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
@@ -151,10 +158,9 @@ int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
 
     int contador = vetorPrincipal[posicao-1].contador;
 
-    if (contador == 1 && vetorPrincipal[posicao-1].auxiliar[0] == valor){
+    if (contador == 1 && vetorPrincipal[posicao-1].auxiliar[0] == valor)
       existe = 1;
-    
-    }
+
     else
       for (i = 0; i < contador-1; i++)
         
@@ -174,16 +180,6 @@ int excluirNumeroEspecificoDeEstrutura(int valor, int posicao){
     return SUCESSO;
 }
 
-// se posição é um valor válido {entre 1 e 10}
-int ehPosicaoValida(int posicao){
-    int retorPrincipal = 0;
-    if (posicao < 1 || posicao > 10){
-        retorPrincipal = POSICAO_INVALIDA;
-    }else retorPrincipal = SUCESSO;
-
-    return retorPrincipal;
-
-}
 /*
 Objetivo: retorna os números da estrutura auxiliar da posição 'posicao (1..10)'.
 os números devem ser armazenados em vetorAux
@@ -194,7 +190,7 @@ RetorPrincipal (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
 
-void getDadosAux(int posicao, int vetorAux[], int n){
+void getDadosAux(int posicao, int vetorAux[], int n){ // PEGA DADOS DO AUXILIAR E COLOCA EM OUTRO VETOR
 
     int i;
 
@@ -204,7 +200,7 @@ void getDadosAux(int posicao, int vetorAux[], int n){
 
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]){
 
-    if (posicao < 1 || posicao > TAM)
+    if (posicaoInvalida(posicao) == 1)
         return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
@@ -229,7 +225,7 @@ RertoPrincipal (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
 
-void bubble(int vet[], int n){
+void bubble(int vet[], int n){ // ORDENA O VETOR 
 
     int i, j, aux;
 
@@ -252,9 +248,9 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]){
 
     int contador = vetorPrincipal[posicao-1].contador;
 
-    getDadosAux(posicao,vetorAux,contador);
+    getDadosAux(posicao, vetorAux, contador); // PEGO OS DADOS
 
-    bubble(vetorAux, contador);
+    bubble(vetorAux, contador); // ORDENO O VETOR
 
     return SUCESSO;
 }
@@ -267,28 +263,54 @@ RertoPrincipal (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS AS ESTRUTURA AUXILIARES VAZIAS
 */
-int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
 
-    int aux = 1;
-    int i, j, contador;
+int todasEstruturasAuxiliaresVazias(){ //VERIFICA SE TODAS AS ESTRUTURAS AUXILIARES ESTÃO VAZIAS
+
+    int vazia = 1;
+    int i;
 
     for (i = 0; i < TAM; i++)
-        if (vetorPrincipal[i].auxiliar == NULL)
-            aux ++;
-        
-        else{
-            contador = vetorPrincipal[i].contador;
+        if (vetorPrincipal[i].contador == 0)
+            vazia ++;
 
-            for (j = 0; j < contador; j++)
-                vetorAux[j] = vetorPrincipal[i].auxiliar[j];
+    if (vazia == TAM)
+        return 1;
 
-            j++;
-        }
+    return 0;
+}
 
-    if (aux == TAM)
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
+
+    if (todasEstruturasAuxiliaresVazias() == 1)
         return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
 
+    int i, j;
+    int contador;
+    int k = 0;
+
+    for (i = 0; i < TAM; i++){
+
+        if (vetorPrincipal[i].auxiliar != NULL){
+            contador = vetorPrincipal[i].contador;
+        
+            for (j = 0; j < contador; j++, k++)
+                 vetorAux[k] = vetorPrincipal[i].auxiliar[j];
+        }
+    }
+
     return SUCESSO;
+}
+
+int getContadorTodasEstruturaAuxiiares(){ // CONTA A QUANTIDADE DE ÍNDICES PREENCHIDOS
+
+    int i,j;
+    int contador = 0;
+
+    for (i = 0; i < TAM; i++)
+        if (vetorPrincipal[i].auxiliar != NULL)
+            contador += vetorPrincipal[i].contador;
+
+    return contador;
 }
 
 /*
@@ -301,25 +323,18 @@ RertoPrincipal (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
 
-void bubbleTodas(int vet[]){
-
-    int i, j, aux;
-
-    for (i = n -1; i > 0; i--)
-        for (j = 0; j < i; j++)
-            if(vet[j] > vet[j + 1]){
-                aux = vet[j];
-                vet[j] = vet[j + 1];
-                vet[j + 1] = aux;
-            }
-}
-
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]){
+
+    if (todasEstruturasAuxiliaresVazias() == 1)
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
 
     getDadosDeTodasEstruturasAuxiliares(vetorAux);
 
-    bubble(vetorAux);
+    int n = getContadorTodasEstruturaAuxiiares();
 
+    bubble(vetorAux, n);
+
+    return SUCESSO;
 }
 
 /*
@@ -335,9 +350,21 @@ RertoPrincipal (int)
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int PrincipalvoTamanho){
 
-    int retorPrincipal = 0;
-    return retorPrincipal;
+    if (posicao < 1 || posicao > TAM)
+        return POSICAO_INVALIDA;
 
+    if (PrincipalvoTamanho < 0)
+        return PrincipalVO_TAMANHO_INVALIDO;
+    
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
+
+    vetorPrincipal[posicao-1].auxiliar = (int*)realloc(vetorPrincipal[posicao-1].auxiliar,PrincipalvoTamanho*sizeof(int));
+
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESPACO_DE_MEMORIA;
+
+    return SUCESSO;
 }
 
 /*
@@ -351,10 +378,18 @@ RetorPrincipal (int)
 */
 int getQuantidadeElementosEstruturaAuxiliar(int posicao){
 
-    int retorPrincipal = 0;
+    if (posicao < 1 || posicao > TAM)
+        return POSICAO_INVALIDA;
 
+    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
 
-    return retorPrincipal;
+    if (vetorPrincipal[posicao-1].contador == 0)
+        return ESTRUTURA_AUXILIAR_VAZIA;
+
+    int contador = vetorPrincipal[posicao-1].contador;
+
+    return contador;
 
 }
 
