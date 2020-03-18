@@ -55,7 +55,7 @@ int criarEstruturaAuxiliar(int tamanho, int posicao){
   if (posicaoInvalida(posicao) == 1)
     return POSICAO_INVALIDA;
 
-  if ((vetorPrincipal[posicao-1].auxiliar != NULL))
+  if (vetorPrincipal[posicao-1].auxiliar != NULL)
     return JA_TEM_ESTRUTURA_AUXILIAR;
   
   if (tamanho < 1)
@@ -350,20 +350,27 @@ RertoPrincipal (int)
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int PrincipalvoTamanho){
 
-    if (posicao < 1 || posicao > TAM)
+    if (posicaoInvalida(posicao) == 1)
         return POSICAO_INVALIDA;
 
-    if (PrincipalvoTamanho < 0)
+    if (PrincipalvoTamanho < 1)
         return PrincipalVO_TAMANHO_INVALIDO;
     
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
         return SEM_ESTRUTURA_AUXILIAR;
 
-    vetorPrincipal[posicao-1].auxiliar = (int*)realloc(vetorPrincipal[posicao-1].auxiliar,PrincipalvoTamanho*sizeof(int));
+    int tamanhoAlvo = vetorPrincipal[posicao-1].tamanho + PrincipalvoTamanho;
+    int *ptr = vetorPrincipal[posicao-1].auxiliar;
 
-    if (vetorPrincipal[posicao-1].auxiliar == NULL)
+    ptr = (int*)realloc(ptr, tamanhoAlvo * sizeof(int));
+
+    if (ptr == NULL){
         return SEM_ESPACO_DE_MEMORIA;
+    }
 
+    vetorPrincipal[posicao-1].auxiliar = ptr;
+    vetorPrincipal[posicao-1].tamanho = tamanhoAlvo;
+    
     return SUCESSO;
 }
 
@@ -378,7 +385,7 @@ RetorPrincipal (int)
 */
 int getQuantidadeElementosEstruturaAuxiliar(int posicao){
 
-    if (posicao < 1 || posicao > TAM)
+    if (posicaoInvalida(posicao) == 1)
         return POSICAO_INVALIDA;
 
     if (vetorPrincipal[posicao-1].auxiliar == NULL)
@@ -421,7 +428,6 @@ Objetivo: retorna os números da lista enceada com cabeçote armazenando em veto
 RetorPrincipal void
 */
 void getDadosListaEncadeadaComCabecote(Principal* inicio, int vetorAux[]){
-
 
 }
 
