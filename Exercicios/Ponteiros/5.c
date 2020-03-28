@@ -44,7 +44,61 @@ int inserirFinal(Lista *inicio, int valor){
 		ultimo = ultimo->proximo;
 
 	ultimo->proximo = novo;
+
+	return 1;
 }
+
+int inserirOrdenado(Lista *inicio, int valor){
+
+	if (inicio == NULL) // Se o espaco nao foi alocado saia da funcao
+		return 0;
+
+	Lista *novo = (Lista*)malloc(sizeof(Lista));
+
+	if (novo == NULL) // Se o espaco nao foi alocado saia
+		return 0;
+
+	novo->conteudo = valor; // Atribuindo o valor ao novo elemento
+
+	if (inicio->proximo == NULL){  // Se lista estiver vazia, insira no inicio
+		novo->proximo = NULL;
+		inicio->proximo = novo;
+
+		return 1;
+	}
+ 	
+ 	Lista *atual = inicio->proximo; // atual passa a ser o primeiro elemento da lista
+
+ 	if (atual->conteudo > valor){
+ 		novo->proximo = atual;
+ 		inicio->proximo = novo;
+
+ 		return 1;
+ 	}
+
+ 	Lista *anterior = atual; // anterior vai servir para armazenar sempre o antigo atual, já que nao existe um ponteiro chamado anterior;
+
+ 	while (atual != NULL && atual->conteudo < valor){
+ 		anterior = atual;
+ 		atual = atual->proximo;
+ 	}
+
+ 	if (atual != NULL){ // Se atual parou antes de chegar ao final, é por que achou algum valor maior que o que está sendo comparado
+ 		novo->proximo = atual;
+ 		anterior->proximo = novo;
+
+ 		return 1;
+ 	}
+
+ 	if (atual == NULL){ // Se não existir um valor maior que o atual, coloca ele na última posicao.
+ 		novo->proximo = NULL;
+ 		anterior->proximo = novo;
+
+ 		return 1;
+ 	}
+ 	
+ 
+} 
 
 void exibirLista(Lista *inicio){
 
@@ -62,8 +116,13 @@ void exibirLista(Lista *inicio){
 void main(){
 
 	Lista *inicio = criarLista();
-
-	inserirFinal(inicio, 2);
 	
+	inserirFinal(inicio, 10);
+	inserirOrdenado(inicio, 1);
+	inserirOrdenado(inicio, 4);
+	inserirOrdenado(inicio, 6);
+	inserirOrdenado(inicio, 8);
+	inserirOrdenado(inicio, 11);
+
 	exibirLista(inicio);
 }
