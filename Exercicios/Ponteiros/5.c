@@ -8,6 +8,25 @@ typedef struct lista{
 
 }Lista;
 
+Lista* criarLista();
+int inserirFinal(Lista *inicio, int valor);
+int inserirOrdenado(Lista *inicio, int valor);
+void exibirLista(Lista *inicio);
+
+void main(){
+
+	Lista *inicio = criarLista();
+	
+	inserirFinal(inicio, 10);
+	inserirOrdenado(inicio, 1);
+	inserirOrdenado(inicio, 4);
+	inserirOrdenado(inicio, 6);
+	inserirOrdenado(inicio, 8);
+	inserirOrdenado(inicio, 11);
+
+	exibirLista(inicio);
+}
+
 Lista* criarLista(){
 
 	Lista *inicio = (Lista*)malloc(sizeof(Lista));
@@ -95,9 +114,7 @@ int inserirOrdenado(Lista *inicio, int valor){
  		anterior->proximo = novo;
 
  		return 1;
- 	}
- 	
- 
+ 	} 
 } 
 
 void exibirLista(Lista *inicio){
@@ -111,18 +128,4 @@ void exibirLista(Lista *inicio){
 		printf("-> %d", atual->conteudo);
 		atual = atual->proximo;
 	}
-}
-
-void main(){
-
-	Lista *inicio = criarLista();
-	
-	inserirFinal(inicio, 10);
-	inserirOrdenado(inicio, 1);
-	inserirOrdenado(inicio, 4);
-	inserirOrdenado(inicio, 6);
-	inserirOrdenado(inicio, 8);
-	inserirOrdenado(inicio, 11);
-
-	exibirLista(inicio);
 }
