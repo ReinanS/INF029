@@ -389,31 +389,6 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho){
         vetorPrincipal[posicao].contador = contador;
     
     return SUCESSO;
-    
-   
-   // Davi
-   /*
-       if (!ehPosicaoValida(posicao))
-        return POSICAO_INVALIDA;
-
-    posicao -= 1;
-    if (!existeEstruturaAuxiliar(posicao))
-        return SEM_ESTRUTURA_AUXILIAR;
-
-    novoTamanho += estruturaPrincipal[posicao].tamanho;
-    if (!ehTamanhoValido(novoTamanho))
-        return NOVO_TAMANHO_INVALIDO;
-
-    estruturaPrincipal[posicao].estruturaAuxiliar = (int *) realloc(estruturaPrincipal[posicao].estruturaAuxiliar, novoTamanho * sizeof(int));
-    if (estruturaPrincipal[posicao].estruturaAuxiliar == NULL)
-        return SEM_ESPACO_DE_MEMORIA;
-
-    estruturaPrincipal[posicao].tamanho = novoTamanho;
-    int _espacoUtilizado = estruturaPrincipal[posicao].espacoUtilizado;
-    estruturaPrincipal[posicao].espacoUtilizado = novoTamanho < _espacoUtilizado ? novoTamanho : _espacoUtilizado;
-
-    return SUCESSO;
-    */
 }
 
 /*
@@ -459,6 +434,13 @@ Principal* montarListaEncadeadaComCabecote(){
         return NULL;
 
     inicio->proximo = NULL;
+
+   /*
+    
+    - Quantidade de todos os elementos na lista
+    - Acessar cada um e colocar no inicio da lista;
+
+    */
 
     return inicio;
 }
