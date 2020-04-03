@@ -275,7 +275,8 @@ RertoPrincipal (int)
     TODAS AS ESTRUTURA AUXILIARES VAZIAS
 */
 
-int todasEstruturasAuxiliaresVazias(){ //VERIFICA SE TODAS AS ESTRUTURAS AUXILIARES ESTÃO VAZIAS
+//VERIFICA SE TODAS AS ESTRUTURAS AUXILIARES ESTÃO VAZIAS
+int todasEstruturasAuxiliaresVazias(){ 
 
     int vazia = 0;
     int i;
@@ -464,21 +465,22 @@ Principal* montarListaEncadeadaComCabecote(){
         return NULL;
 
     inicio->proximo = NULL; // início só vai servir para apontar para o próximo
-
-    int n = getContadorTodasEstruturaAuxiiares(); // Usando a funcao para saber o tamanho de todas as estruturas auxiliares
-
-    if (n == 0)
+   
+    if (todasEstruturasAuxiliaresVazias()) // Se todas as estruturas auxiliares estiverem vazias, retorne NULL
         return NULL;
+   
+    int i, j;
+    int contador;
 
-    int vet[n]; 
-    int i;
-
-    getDadosDeTodasEstruturasAuxiliares(vet); // Colocando os dados de todas as estruturas em um vetor
-
-    for (i = 0; i < n; i++)
-        inserirNaLista(inicio, vet[i]); // Colocando na lista os dados do vetor
-
-
+    for (i = 0; i < TAM; i++)
+        if (vetorPrincipal[i].auxiliar != NULL){ // Se a estrutura auxiliar não estiver vazia, execute
+            contador = vetorPrincipal[i].contador; // contador vai estar sempre mudando o seu valor, pois ele depende de cada posicao da estrutura auxliar
+            for (j = 0; j < contador; j++)
+                inserirNaLista(inicio, vetorPrincipal[i].auxiliar[j]);
+        }
+            
+        
+    
     return inicio;
 }
 
