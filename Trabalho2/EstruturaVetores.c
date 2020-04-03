@@ -492,6 +492,18 @@ RetorPrincipal void
 */
 void getDadosListaEncadeadaComCabecote(Principal* inicio, int vetorAux[]){
 
+
+    Principal *atual = inicio->proximo;
+    int i = 0;
+
+    while (atual != NULL){
+
+        vetorAux[i] = atual->conteudo; // Atribuindo o conteudo de atual para o vetorAux 
+        
+        atual = atual->proximo; // Atual passa a ser o próximo
+        i++; // I passa a ocupar a próximo posicao
+    }
+
 }
 
 /*
