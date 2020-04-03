@@ -312,7 +312,8 @@ int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
     return SUCESSO;
 }
 
-int getContadorTodasEstruturaAuxiiares(){ // CONTA A QUANTIDADE DE ÍNDICES PREENCHIDOS
+// CONTA A QUANTIDADE DE ÍNDICES PREENCHIDOS
+int getContadorTodasEstruturaAuxiiares(){ 
 
     int i,j;
     int contador = 0;
@@ -464,7 +465,19 @@ Principal* montarListaEncadeadaComCabecote(){
 
     inicio->proximo = NULL; // início só vai servir para apontar para o próximo
 
-   
+    int n = getContadorTodasEstruturaAuxiiares(); // Usando a funcao para saber o tamanho de todas as estruturas auxiliares
+
+    if (n == 0)
+        return NULL;
+
+    int vet[n]; 
+    int i;
+
+    getDadosDeTodasEstruturasAuxiliares(vet); // Colocando os dados de todas as estruturas em um vetor
+
+    for (i = 0; i < n; i++)
+        inserirNaLista(inicio, vet[i]); // Colocando na lista os dados do vetor
+
 
     return inicio;
 }
@@ -478,8 +491,6 @@ Objetivo: retorna os números da lista enceada com cabeçote armazenando em veto
 RetorPrincipal void
 */
 void getDadosListaEncadeadaComCabecote(Principal* inicio, int vetorAux[]){
-
-
 
 }
 
