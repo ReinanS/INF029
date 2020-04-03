@@ -419,6 +419,35 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao){
 
 }
 
+
+//Insere o novo valor no final da lista
+int inserirNaLista(Principal *inicio, int valor){
+
+    if (inicio == NULL) // Nao existe lista
+        return 0;
+
+    Principal *novo = (Principal*)malloc(sizeof(Principal)); // Alocando memória para novo
+
+    if (novo == NULL) // Não conseguiu alocar memória
+        return 0;
+
+    novo->conteudo = valor;
+    novo->proximo = NULL;
+
+    if (inicio->proximo == NULL){ //Lista vazia, nsira no início
+
+        inicio->proximo = novo;
+        return 1;
+    }
+
+    Principal *ultimo = inicio->proximo;
+
+    while (ultimo->proximo != NULL)
+        ultimo = ultimo->proximo;
+
+    ultimo->proximo = novo;
+}
+
 /*
 Objetivo: montar a lista encadeada com cabeçote com todos os números presentes em todas as estruturas.
 
@@ -428,22 +457,19 @@ RetorPrincipal (Principal*)
 */
 Principal* montarListaEncadeadaComCabecote(){
 
-    Principal *inicio = (Principal*)malloc(sizeof(Principal));
+    Principal *inicio = (Principal*)malloc(sizeof(Principal)); // Alocando memória para inicio
 
-    if (inicio == NULL)
+    if (inicio == NULL) // Não consegui alocar
         return NULL;
 
-    inicio->proximo = NULL;
+    inicio->proximo = NULL; // início só vai servir para apontar para o próximo
 
-   /*
-    
-    - Quantidade de todos os elementos na lista
-    - Acessar cada um e colocar no inicio da lista;
-
-    */
+   
 
     return inicio;
 }
+
+
 
 
 
