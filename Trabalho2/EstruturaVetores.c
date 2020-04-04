@@ -499,9 +499,7 @@ void getDadosListaEncadeadaComCabecote(Principal* inicio, int vetorAux[]){
     int i = 0;
 
     while (atual != NULL){
-
-        vetorAux[i] = atual->conteudo; // Atribuindo o conteudo de atual para o vetorAux 
-        
+        vetorAux[i] = atual->conteudo; // Atribuindo o conteudo de atual para o vetorAux   
         atual = atual->proximo; // Atual passa a ser o próximo
         i++; // I passa a ocupar a próximo posicao
     }
@@ -514,8 +512,24 @@ Objetivo: Destruir a lista encadeada com cabeçote a partir de início.
 RetorPrincipal 
     void.
 */
-void destruirListaEncadeadaComCabecote(Principal* inicio){
+void destruirListaEncadeadaComCabecote(Principal** inicio){
    
+    if (inicio == NULL) // Lista não existe
+        return;
+
+    Principal *atual = (*inicio)->proximo;
+
+   while (*inicio != NULL){
+
+        atual = (*inicio)->proximo;
+
+        free(*inicio);
+
+        *inicio = atual;
+   }
+
+    *inicio = NULL;
+
 
 }
 

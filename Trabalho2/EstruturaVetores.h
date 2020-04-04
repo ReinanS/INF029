@@ -14,15 +14,16 @@ struct EstPrincipal{
 
 	int *auxiliar; // VAI APONTAR PARA A ESTRUTURA AUXILIAR
 	int tamanho; // TAMANHO DA ESTRUTURA AUXILIAR
-	int contador; // ELE VAI CONTAR A QUANTIDADE DE ELEMENTOS NO VETOR
+	int contador; // ELE VAI CONTAR A QUANTIDADE DE ELEMENTOS no VETOR
 };
 
 typedef struct EstPrincipal EstPrincipal;
 
+// Lista Encadeada
 struct principal{
 
 	int conteudo;
-	struct principal *prox;
+	struct principal *proximo;
 };
 
 typedef struct principal Principal;
@@ -39,7 +40,7 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int PrincipalvoTamanho);
 int getQuantidadeElementosEstruturaAuxiliar(int posicao);
 Principal* montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(Principal* inicio, int vetorAux[]);
-void destruirListaEncadeadaComCabecote(Principal* inicio);
+void destruirListaEncadeadaComCabecote(Principal** inicio);
 
 void inicializar();
 void finalizar();

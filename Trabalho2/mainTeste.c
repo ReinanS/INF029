@@ -24,7 +24,7 @@ int main(){
     testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
-  //  testeListaEncadeada();
+    testeListaEncadeada();
   //  finalizar();
 
 } 
@@ -193,7 +193,6 @@ void testeRetornarTodosNumeros(){
 int modificarTamanhoEstruturaAuxiliar(int posicao, int PrincipalvoTamanho);
 Objetivo: modificar o tamanho da estrutura auxiliar da posição 'posicao' para o Principalvo tamanho 'PrincipalvoTamanho' + tamanho atual
 Suponha o tamanho inicial = x, e Principalvo tamanho = n. O tamanho resultante deve ser x + n. Sendo que x + n deve ser sempre >= 1
-
 RertoPrincipal (int)
     SUCESSO - foi modificado corretamente o tamanho da estrutura auxiliar
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
@@ -213,19 +212,19 @@ void testeMudarTamanhoEstrutura(){
     //modificar para tamanho de 3 para 1
     printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, -2) == SUCESSO);
     printf("%d\n",getQuantidadeElementosEstruturaAuxiliar(2) == 1);
-//    printf("%d\n",getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
-//    printf("%d\n",vet[0] == 3);
+    printf("%d\n",getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
+    printf("%d\n",vet[0] == 3);
 
     //modificar para tamanho de 1 para 4
-//    printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, 3) == SUCESSO);
-//    printf("%d\n",getQuantidadeElementosEstruturaAuxiliar(2) == 1);
-//    printf("%d\n",getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
-//    printf("%d\n",vet[0] == 3);
+    printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, 3) == SUCESSO);
+    printf("%d\n",getQuantidadeElementosEstruturaAuxiliar(2) == 1);
+    printf("%d\n",getDadosEstruturaAuxiliar(2, vet) == SUCESSO);
+    printf("%d\n",vet[0] == 3);
 
-//    printf("%d\n",inserirNumeroEmEstrutura(4, 2) == SUCESSO);
-//    printf("%d\n",inserirNumeroEmEstrutura(-2, 2) == SUCESSO);
-//    printf("%d\n",inserirNumeroEmEstrutura(6, 2) == SUCESSO);
-//    printf("%d\n",inserirNumeroEmEstrutura(5, 2) == SEM_ESPACO);
+    printf("%d\n",inserirNumeroEmEstrutura(4, 2) == SUCESSO);
+    printf("%d\n",inserirNumeroEmEstrutura(-2, 2) == SUCESSO);
+    printf("%d\n",inserirNumeroEmEstrutura(6, 2) == SUCESSO);
+    printf("%d\n",inserirNumeroEmEstrutura(5, 2) == SEM_ESPACO);
     
 }
 
@@ -251,7 +250,7 @@ void testeListaEncadeada(){
     printf("%d\n",vet[8] == 27);
     printf("%d\n",vet[9] == -6);
 
-    destruirListaEncadeadaComCabecote(inicio);
+    destruirListaEncadeadaComCabecote(&inicio);
 
     printf("%d\n",inicio == NULL);
 
