@@ -7,26 +7,22 @@
 #define TAMANHO_INVALIDO -7
 #define ESTRUTURA_AUXILIAR_VAZIA -8
 #define NUMERO_INEXISTENTE -9
-#define PrincipalVO_TAMANHO_INVALIDO -10
+#define NOVO_TAMANHO_INVALIDO -10
 #define TODAS_ESTRUTURAS_AUXILIARES_VAZIAS -11
+#define TAM 10
 
-struct EstPrincipal{
-
+// Estrutura Principal
+typedef struct principal{
 	int *auxiliar; // VAI APONTAR PARA A ESTRUTURA AUXILIAR
 	int tamanho; // TAMANHO DA ESTRUTURA AUXILIAR
-	int contador; // ELE VAI CONTAR A QUANTIDADE DE ELEMENTOS no VETOR
-};
+	int qtd; // ELE VAI CONTAR A QUANTIDADE DE ELEMENTOS no VETOR
+}Principal;
 
-typedef struct EstPrincipal EstPrincipal;
-
-// Lista Encadeada
-struct principal{
-
+// Estrutura Auxiliar
+typedef struct no{
 	int conteudo;
-	struct principal *proximo;
-};
-
-typedef struct principal Principal;
+	struct no *prox;
+}No;
 
 int criarEstruturaAuxiliar(int tamanho, int posicao);
 int inserirNumeroEmEstrutura(int valor, int posicao);
@@ -38,9 +34,9 @@ int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]);
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]);
 int modificarTamanhoEstruturaAuxiliar(int posicao, int PrincipalvoTamanho);
 int getQuantidadeElementosEstruturaAuxiliar(int posicao);
-Principal* montarListaEncadeadaComCabecote();
-void getDadosListaEncadeadaComCabecote(Principal* inicio, int vetorAux[]);
-void destruirListaEncadeadaComCabecote(Principal** inicio);
+No* montarListaEncadeadaComCabecote();
+void getDadosListaEncadeadaComCabecote(No* inicio, int vetorAux[]);
+void destruirListaEncadeadaComCabecote(No** inicio);
 
 void inicializar();
 void finalizar();

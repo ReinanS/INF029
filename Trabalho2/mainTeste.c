@@ -1,7 +1,6 @@
 #include <stdio.h> 
 #include <stdlib.h>
-
-#include "EstruturaVetores.h"
+#include "ReinanSantos-2019116042-T2.h"
 
 void show_log(char *str);
 
@@ -25,10 +24,10 @@ int main(){
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
     testeListaEncadeada();
-  //  finalizar();
+    finalizar();
 
 } 
-int ligado = 1;
+int ligado = 0;
 void show_log(char *str){
     if (ligado)
         printf("###%s###\n", str);
@@ -78,6 +77,7 @@ void testeExcluir(){
     printf("%d\n",excluirNumeroDoFinaldaEstrutura(2) == SUCESSO);
     printf("%d\n",excluirNumeroDoFinaldaEstrutura(2) == ESTRUTURA_AUXILIAR_VAZIA);
 } 
+
 /*
 2 [ , , ]
 */
@@ -190,21 +190,22 @@ void testeRetornarTodosNumeros(){
 */
 
 /*
-int modificarTamanhoEstruturaAuxiliar(int posicao, int PrincipalvoTamanho);
-Objetivo: modificar o tamanho da estrutura auxiliar da posição 'posicao' para o Principalvo tamanho 'PrincipalvoTamanho' + tamanho atual
-Suponha o tamanho inicial = x, e Principalvo tamanho = n. O tamanho resultante deve ser x + n. Sendo que x + n deve ser sempre >= 1
-RertoPrincipal (int)
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
+Objetivo: modificar o tamanho da estrutura auxiliar da posição 'posicao' para o novo tamanho 'novoTamanho' + tamanho atual
+Suponha o tamanho inicial = x, e novo tamanho = n. O tamanho resultante deve ser x + n. Sendo que x + n deve ser sempre >= 1
+
+Rertono (int)
     SUCESSO - foi modificado corretamente o tamanho da estrutura auxiliar
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
-    PrincipalVO_TAMANHO_INVALIDO - Principalvo tamanho não pode ser negativo
-    SEM_ESPACO_DE_MEMORIA - erro na alocação do Principalvo valor
+    NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
+    SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
 void testeMudarTamanhoEstrutura(){
     show_log("testeMudarTamanhoEstrutura()");
     int vet[1];
-    printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, -3) == PrincipalVO_TAMANHO_INVALIDO);
-    printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, -4) == PrincipalVO_TAMANHO_INVALIDO);
+    printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, -3) == NOVO_TAMANHO_INVALIDO);
+    printf("%d\n",modificarTamanhoEstruturaAuxiliar(2, -4) == NOVO_TAMANHO_INVALIDO);
     printf("%d\n",modificarTamanhoEstruturaAuxiliar(11, 7) == POSICAO_INVALIDA);
     printf("%d\n",modificarTamanhoEstruturaAuxiliar(0, 7) == POSICAO_INVALIDA);
     printf("%d\n",modificarTamanhoEstruturaAuxiliar(1, 7) == SEM_ESTRUTURA_AUXILIAR);
@@ -236,7 +237,7 @@ void testeMudarTamanhoEstrutura(){
 void testeListaEncadeada(){
     show_log("testeListaEncadeada()");
     int vet[10];
-    Principal* inicio = montarListaEncadeadaComCabecote();
+    No* inicio = montarListaEncadeadaComCabecote();
     getDadosListaEncadeadaComCabecote(inicio, vet);
 
     printf("%d\n",vet[0] == 3);
