@@ -5,7 +5,7 @@
 Principal vetorPrincipal[TAM];
 
 /*
-        Abrir
+        Abrir - Raciocínio
 Abro o arquivo
 se estiver vazio, fecho e começo a aplicação sem nada
 se tiver algo separo as informações em cada variável.
@@ -19,6 +19,8 @@ depois utilizo as funções existentes para preencher a aplicação.
 */
 
 int converteLinha(char linha[]);
+int converteLinha(char linha[]);
+int encontraValor(char str[], char linha[], int posicao);
 
 int leArquivo() {
     FILE *input = fopen("estrutura.txt", "r");
@@ -27,9 +29,13 @@ int leArquivo() {
 
     int retorno = SUCESSO;
 
+    // Se não existe ou estiver vazio
     if(input == NULL || ch == EOF){
-        return 0;
+        printf("Não Abiru");
+        return ERRO_ABRIR_ARQUIVO;
     }
+
+    printf("abriu");
 
     while(!feof(input)) {
         // pego a linha
@@ -38,9 +44,54 @@ int leArquivo() {
         converteLinha(linha);
     }
 
-
-
     return retorno;
+}
+
+
+
+int converteLinha(char linha[]){
+    int i;
+    int j = 0;
+
+    char indice[TAMLINHA];
+    char tamanho[TAMLINHA];
+    char qtd[TAMLINHA];
+    char elementosAux[TAMLINHA];
+    
+
+    // Encontra o indice
+    j = encontraValor(indice, linha, j);
+
+    // Encontra o tamanho
+    j = encontraValor(tamanho, linha, j);
+    
+    //  Encontra a qtd
+    j = encontraValor(qtd, linha, j);
+    
+
+
+    // Conversão de string para inteiro
+    int indiceNum = atoi(indice);
+    int tamanhoNum = atof(tamanho);
+    int qtdNum = atoi(qtd);
+    
+
+    // // Encontra os elementos da Estrutura Auxiliar
+    // for(i = ;  < qtdNum; i++) {
+        
+    // }
+
+    // Impressoes
+    printf("Indice = %d \n", indiceNum);
+    printf("Tamanho = %d \n", tamanhoNum);
+    printf("Qtd = %d \n", qtdNum);
+
+    // Impressão dos elementos na estrutura
+
+
+    // Chamo as funcoes para Inserir na Lista
+
+    return SUCESSO;
 }
 
 
@@ -67,46 +118,6 @@ int encontraValor(char str[], char linha[], int posicao) {
     [ ] - Lista sem peso
     [ ] - Lista sem gc
 */
-int converteLinha(char linha[]){
-    int i;
-    int j = 0;
-
-    char indice[TAMLINHA];
-    char tamanho[TAMLINHA];
-    char qtd[TAMLINHA];
-    char elementosAux[TAMLINHA];
-    
-
-    // Encontra o indice
-    j = encontraValor(indice, linha, j);
-
-    // Encontra o tamanho
-    j = encontraValor(tamanho, linha, j);
-    
-    //  Encontra a qtd
-    j = encontraValor(qtd, linha, j);
-    
-    // Encontra os elementos da Estrutura Auxiliar
-
-
-    // Conversão de string para inteiro
-    int indiceNum = atoi(indice);
-    int tamanhoNum = atof(tamanho);
-    int qtdNum = atoi(qtd);
-    
-
-    // Impressoes
-    printf("Indice = %d \n", indiceNum);
-    printf("Tamanho = %d \n", tamanhoNum);
-    printf("Qtd = %d \n", qtdNum);
-
-    // Impressão dos elementos na estrutura
-
-
-    // Chamo as funcoes para Inserir na Lista
-
-    return SUCESSO;
-}
 
 
 
@@ -131,6 +142,8 @@ void inicializar(){
     vetorPrincipal[i].qtd = 0;
     vetorPrincipal[i].tamanho = 0;
   }
+
+  leArquivo();
 
 
 } 
@@ -604,7 +617,7 @@ void finalizar(){
     int i;
 
     // Salva a estrutura no arquivo.
-    getEstrutura();
+    salvaEstrutura();
 
     for(i = 0; i < TAM; i++)
         free(vetorPrincipal[i].auxiliar);
@@ -623,7 +636,7 @@ imprimo:
 indicePrincipal;tamanhoAuxiliar;qtdAuxiliar;elementoAux1;elementoAux2;elementoAux3;
 
 */
-int getEstrutura() {
+int salvaEstrutura() {
     int i;
     int n = 10;
     int indicePrincipal, tamanho, qtd;
@@ -660,7 +673,7 @@ int getEstrutura() {
 int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]) {
     
     // Vai escrever no final do arquivo estrutura.txt
-    FILE *output = fopen("estrutura.txt", "a");
+    FILE *output = fopen("estrutura.txt", "w");
     int i;
 
     int retorno = SUCESSO;

@@ -44,5 +44,5 @@ void inicializar();
 void finalizar();
 void dobrar(int *x);
 
+int salvaEstrutura();
 int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]);
-int getEstrutura();
