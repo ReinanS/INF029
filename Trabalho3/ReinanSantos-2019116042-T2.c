@@ -5,79 +5,6 @@
 Principal vetorPrincipal[TAM];
 
 /*
-        Salvar
-
-Percorro a estrutura principal
-os que forem diferentes de Null eu armazeno o indice da estrutura princiapl
-depois armazeno o tamanho da estrutura auxiliar desse indice
-depois armazeno a quantidade de elementos preenchidos dessa estrutura auxiliar
-depois percorro a estrutura auxiliar e pego todos os seus elementos.
-abro o arquivo, 
-imprimo:
-indicePrincipal;tamanhoAuxiliar;qtdAuxiliar;elementoAux1;elementoAux2;elementoAux3;
-
-*/
-
-int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]);
-
-int getEstrutura() {
-
-    int i;
-    int n = 10;
-    int indicePrincipal, tamanho, qtd;
-
-    int retorno = SUCESSO;
-
-    for(i = 0; i < n; i++) {
-        if(vetorPrincipal[i].auxiliar != NULL) {
-            indicePrincipal = i;
-            tamanho = vetorPrincipal[i].tamanho;
-            qtd = vetorPrincipal[i].qtd;
-
-            int elementosAux[qtd];
-            // Pega os dados Presentes na estrutura auxiliar e armazena no vetor.
-            retorno = getDadosEstruturaAuxiliar(i, elementosAux);
-
-            if(retorno != SUCESSO) {
-                return 0;
-            }
-            // Grava no arquivo
-            retorno = gravaNoArquivo(indicePrincipal, tamanho, qtd, elementosAux);
-
-            if(retorno != SUCESSO) {
-                return 0;
-            }
-        }
-    }
-    return retorno;
-}
-
-int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]) {
-    // Vai escrever no final do arquivo estrutura.txt
-    FILE *output = fopen("estrutura.txt", "a");
-    int i;
-
-    if(output == NULL) {
-        return 0;
-    }
-
-    while(!feof(output)) {
-        fprintf(output, "%d", indice);
-        fprintf(output, "%d", tamanho);
-        fprintf(output, "%d", qtd);
-        
-        for(i = 0; i < qtd; i++)
-            fprintf(output, "%d", elementos[i]);
-
-        // Imprime o \n no final da linha
-        fprintf(output, "\n");
-    }
-
-    fclose(output);
-}
-
-
-/*
         Abrir
 Abro o arquivo
 se estiver vazio, fecho e começo a aplicação sem nada
@@ -204,6 +131,8 @@ void inicializar(){
     vetorPrincipal[i].qtd = 0;
     vetorPrincipal[i].tamanho = 0;
   }
+
+
 } 
 
 int posicaoInvalida(int posicao){
@@ -671,10 +600,89 @@ Objetivo: finaliza o programa. deve ser chamado ao final do programa
 para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 */
-
 void finalizar(){
     int i;
+
+    // Salva a estrutura no arquivo.
+    getEstrutura();
+
     for(i = 0; i < TAM; i++)
         free(vetorPrincipal[i].auxiliar);
 }
 
+/*
+        Salvar - Raciocínio
+
+Percorro a estrutura principal
+os que forem diferentes de Null eu armazeno o indice da estrutura princiapl
+depois armazeno o tamanho da estrutura auxiliar desse indice
+depois armazeno a quantidade de elementos preenchidos dessa estrutura auxiliar
+depois percorro a estrutura auxiliar e pego todos os seus elementos.
+abro o arquivo, 
+imprimo:
+indicePrincipal;tamanhoAuxiliar;qtdAuxiliar;elementoAux1;elementoAux2;elementoAux3;
+
+*/
+int getEstrutura() {
+    int i;
+    int n = 10;
+    int indicePrincipal, tamanho, qtd;
+
+    int retorno = SUCESSO;
+
+    // Vai percorrer a estrutura principal
+    for(i = 0; i < n; i++) {
+        // Quando achar uma estrutura que existe, ele vai armazenar os seus dados
+        if(vetorPrincipal[i].auxiliar != NULL) {
+            indicePrincipal = i+1; // +1    por quê o índice inicia no 0
+            tamanho = vetorPrincipal[i].tamanho;
+            qtd = vetorPrincipal[i].qtd;
+
+            int elementosAux[qtd];
+            // Pega os dados Presentes na estrutura auxiliar e armazena no vetor.
+            retorno = getDadosEstruturaAuxiliar(indicePrincipal, elementosAux);
+
+            if(retorno != SUCESSO) {
+                return retorno;
+            }
+            // Grava no arquivo
+            retorno = gravaNoArquivo(indicePrincipal, tamanho, qtd, elementosAux);
+
+            if(retorno != SUCESSO) {
+                return retorno;
+            }
+        }
+    }
+
+    return retorno;
+}
+
+int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]) {
+    
+    // Vai escrever no final do arquivo estrutura.txt
+    FILE *output = fopen("estrutura.txt", "a");
+    int i;
+
+    int retorno = SUCESSO;
+
+    if(output == NULL) {
+        return retorno;
+    }
+
+    // Imprime no Arquivo as Propriedades
+    fprintf(output, "%d;", indice);
+    fprintf(output, "%d;", tamanho);
+    fprintf(output, "%d;", qtd);
+        
+    // Imprime no Arquivo os Elementos da Estrutura Auxiliar    
+    for(i = 0; i < qtd; i++){
+        fprintf(output, "%d;", elementos[i]);
+    }
+
+    // Imprime o \n no final da linha
+    fprintf(output, "\n");
+    fclose(output);
+
+    return SUCESSO;
+
+}

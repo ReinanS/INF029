@@ -9,6 +9,7 @@
 #define NUMERO_INEXISTENTE -9
 #define NOVO_TAMANHO_INVALIDO -10
 #define TODAS_ESTRUTURAS_AUXILIARES_VAZIAS -11
+#define ERRO_ABRIR_ARQUIVO -12
 #define TAM 10
 #define TAMLINHA 100
 
@@ -42,3 +43,6 @@ void destruirListaEncadeadaComCabecote(No** inicio);
 void inicializar();
 void finalizar();
 void dobrar(int *x);
+
+int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]);
+int getEstrutura();
