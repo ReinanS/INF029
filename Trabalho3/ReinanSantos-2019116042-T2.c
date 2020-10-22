@@ -21,30 +21,28 @@ depois utilizo as funções existentes para preencher a aplicação.
 int converteLinha(char linha[]);
 int converteLinha(char linha[]);
 int encontraValor(char str[], char linha[], int posicao);
+int encontraValorAux(char str[], char linha[], int posicao, int qtd, int aux);
 
 int leArquivo() {
     FILE *input = fopen("estrutura.txt", "r");
     char linha[TAMLINHA];
-    char ch = fgetc(input);
 
-    int retorno = SUCESSO;
-
-    // Se não existe ou estiver vazio
-    if(input == NULL || ch == EOF){
-        printf("Não Abiru");
-        return ERRO_ABRIR_ARQUIVO;
+    if(input == NULL){
+        input = fopen("estrutura.txt", "a");
     }
 
-    printf("abriu");
+    int i = 0;
+    fgets(linha, TAMLINHA, input);
 
-    while(!feof(input)) {
-        // pego a linha
-        fgets(linha, TAMLINHA, input);
+    while(!feof(input)) {    
         // converto as informações
         converteLinha(linha);
+        // pego a linha
+        fgets(linha, TAMLINHA, input);
     }
 
-    return retorno;
+    fclose(input);
+    return SUCESSO;
 }
 
 
@@ -58,6 +56,7 @@ int converteLinha(char linha[]){
     char qtd[TAMLINHA];
     char elementosAux[TAMLINHA];
     
+    int elementosAuxNum[TAMLINHA];
 
     // Encontra o indice
     j = encontraValor(indice, linha, j);
@@ -65,21 +64,20 @@ int converteLinha(char linha[]){
     // Encontra o tamanho
     j = encontraValor(tamanho, linha, j);
     
-    //  Encontra a qtd
+    //  Encontra o qtd
     j = encontraValor(qtd, linha, j);
     
-
-
+    // // Encontra os elementos da Estrutura Auxiliar
+    
     // Conversão de string para inteiro
     int indiceNum = atoi(indice);
     int tamanhoNum = atof(tamanho);
     int qtdNum = atoi(qtd);
-    
 
-    // // Encontra os elementos da Estrutura Auxiliar
-    // for(i = ;  < qtdNum; i++) {
-        
-    // }
+    
+    // encontraValorAux(elementosAux, linha, j, qtdNum, elementosAuxNum);
+    // int encontraValorAux(char str[], char linha[], int posicao, int aux)
+    
 
     // Impressoes
     printf("Indice = %d \n", indiceNum);
@@ -87,8 +85,9 @@ int converteLinha(char linha[]){
     printf("Qtd = %d \n", qtdNum);
 
     // Impressão dos elementos na estrutura
-
-
+    for(i = 0; i < tamanhoNum; i++) {
+        printf("Aux = %ls \n", elementosAuxNum);
+    }
     // Chamo as funcoes para Inserir na Lista
 
     return SUCESSO;
@@ -108,6 +107,21 @@ int encontraValor(char str[], char linha[], int posicao) {
     return posicao;
 }
 
+int encontraValorAux(char str[], char linha[], int posicao, int qtd, int aux) {
+    int cont=0;
+    // while(cont<tamanho){
+    //     encontraValor(str, linha,posicao);
+    //     // posicao++;
+    //     aux[cont]=atoi(str);
+    //     cont++;
+    // }
+
+   while(cont < qtd) {
+        posicao = encontraValor(str, linha, posicao);
+        aux[cont] = atoi(str);
+        cont++;
+   }
+}
 
 // Funcionando
 // VALIDAÇÕES
@@ -135,15 +149,15 @@ void dobrar(int *x){
 
 // Objetivo: inicializa o programa. deve ser chamado no inicio do programa 
 void inicializar(){
-  int i;
+    int i;
 
-  for (i = 0; i < TAM; i++){
-    vetorPrincipal[i].auxiliar = NULL;
-    vetorPrincipal[i].qtd = 0;
-    vetorPrincipal[i].tamanho = 0;
-  }
+    for (i = 0; i < TAM; i++){
+        vetorPrincipal[i].auxiliar = NULL;
+        vetorPrincipal[i].qtd = 0;
+        vetorPrincipal[i].tamanho = 0;
+    }
 
-  leArquivo();
+    leArquivo();
 
 
 } 
@@ -643,6 +657,10 @@ int salvaEstrutura() {
 
     int retorno = SUCESSO;
 
+    // Apaga o já existente e cria um novo arquivo;
+    FILE *output = fopen("estrutura.txt", "w");
+    fclose(output);
+
     // Vai percorrer a estrutura principal
     for(i = 0; i < n; i++) {
         // Quando achar uma estrutura que existe, ele vai armazenar os seus dados
@@ -673,13 +691,11 @@ int salvaEstrutura() {
 int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]) {
     
     // Vai escrever no final do arquivo estrutura.txt
-    FILE *output = fopen("estrutura.txt", "w");
+    FILE *output = fopen("estrutura.txt", "a");
     int i;
 
-    int retorno = SUCESSO;
-
     if(output == NULL) {
-        return retorno;
+        return ERRO_ABRIR_ARQUIVO;
     }
 
     // Imprime no Arquivo as Propriedades
