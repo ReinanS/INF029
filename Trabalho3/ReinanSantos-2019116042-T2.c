@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ReinanSantos-2019116042-T2.h"
 
 Principal vetorPrincipal[TAM];
@@ -18,120 +19,50 @@ depois utilizo as funções existentes para preencher a aplicação.
 
 */
 
-int converteLinha(char linha[]);
-int converteLinha(char linha[]);
-int encontraValor(char str[], char linha[], int posicao);
-int encontraValorAux(char str[], char linha[], int posicao, int qtd, int aux);
 
-int leArquivo() {
-    FILE *input = fopen("estrutura.txt", "r");
-    char linha[TAMLINHA];
+void lerArquivo(){
+    FILE *input;
+    char linha[1001];
+    int x,j=0;
+    char numero[1000];
+    int vetor[1000],tamanho,posicao;
+
+    input = fopen("estrutura.txt","r");
 
     if(input == NULL){
-        input = fopen("estrutura.txt", "a");
+        input = fopen("estrutura.txt","w");
+    } else if(input){
+        while(!feof(input)){
+            fgets(linha, 1001, input);
+            int h=0;
+            for(x=0; x<strlen(linha); x++){
+                if(linha[x]!= ';'){
+                    numero[j] = linha[x];
+                    j++;
+                } else if(linha[x] == ';'){
+                    numero[j] = '\0';
+                    vetor[h] = atoi(numero);
+                    h++;
+                    j=0;
+                }
+            }
+            for(x=0; x<h; x++){
+                if(x==0){
+                    posicao = vetor[x]+1;
+                }
+                else if(x==1){
+                    tamanho = vetor[x];
+                    criarEstruturaAuxiliar(tamanho,posicao);
+                }
+                else{
+                    inserirNumeroEmEstrutura(vetor[x],posicao);
+                }
+            }
+        }
     }
-
-    int i = 0;
-    fgets(linha, TAMLINHA, input);
-
-    while(!feof(input)) {    
-        // converto as informações
-        converteLinha(linha);
-        // pego a linha
-        fgets(linha, TAMLINHA, input);
-    }
-
-    fclose(input);
-    return SUCESSO;
 }
 
 
-
-int converteLinha(char linha[]){
-    int i;
-    int j = 0;
-
-    char indice[TAMLINHA];
-    char tamanho[TAMLINHA];
-    char qtd[TAMLINHA];
-    char elementosAux[TAMLINHA];
-    
-    int elementosAuxNum[TAMLINHA];
-
-    // Encontra o indice
-    j = encontraValor(indice, linha, j);
-
-    // Encontra o tamanho
-    j = encontraValor(tamanho, linha, j);
-    
-    //  Encontra o qtd
-    j = encontraValor(qtd, linha, j);
-    
-    // // Encontra os elementos da Estrutura Auxiliar
-    
-    // Conversão de string para inteiro
-    int indiceNum = atoi(indice);
-    int tamanhoNum = atof(tamanho);
-    int qtdNum = atoi(qtd);
-
-    
-    // encontraValorAux(elementosAux, linha, j, qtdNum, elementosAuxNum);
-    // int encontraValorAux(char str[], char linha[], int posicao, int aux)
-    
-
-    // Impressoes
-    printf("Indice = %d \n", indiceNum);
-    printf("Tamanho = %d \n", tamanhoNum);
-    printf("Qtd = %d \n", qtdNum);
-
-    // Impressão dos elementos na estrutura
-    for(i = 0; i < tamanhoNum; i++) {
-        printf("Aux = %ls \n", elementosAuxNum);
-    }
-    // Chamo as funcoes para Inserir na Lista
-
-    return SUCESSO;
-}
-
-
-int encontraValor(char str[], char linha[], int posicao) {
-  int i;
-
-    for(i = 0; linha[posicao] != ';' && linha[posicao] != '\n'; i++, posicao++) { 
-        str[i] = linha[posicao];
-    }
-
-    str[i++] = '\0';
-    posicao++;
-
-    return posicao;
-}
-
-int encontraValorAux(char str[], char linha[], int posicao, int qtd, int aux) {
-    int cont=0;
-    // while(cont<tamanho){
-    //     encontraValor(str, linha,posicao);
-    //     // posicao++;
-    //     aux[cont]=atoi(str);
-    //     cont++;
-    // }
-
-   while(cont < qtd) {
-        posicao = encontraValor(str, linha, posicao);
-        aux[cont] = atoi(str);
-        cont++;
-   }
-}
-
-// Funcionando
-// VALIDAÇÕES
-/*
-    [x] - Lista Vazia
-    [ ] - Lista sem nome
-    [ ] - Lista sem tamanho
-    [ ] - Lista sem peso
-    [ ] - Lista sem gc
-*/
 
 
 
@@ -157,9 +88,7 @@ void inicializar(){
         vetorPrincipal[i].tamanho = 0;
     }
 
-    leArquivo();
-
-
+    // lerArquivo();
 } 
 
 int posicaoInvalida(int posicao){
@@ -632,7 +561,6 @@ void finalizar(){
 
     // Salva a estrutura no arquivo.
     salvaEstrutura();
-
     for(i = 0; i < TAM; i++)
         free(vetorPrincipal[i].auxiliar);
 }
@@ -709,7 +637,7 @@ int gravaNoArquivo(int indice, int tamanho, int qtd, int elementos[]) {
     }
 
     // Imprime o \n no final da linha
-    fprintf(output, "\n");
+    fprintf(output,"\n");
     fclose(output);
 
     return SUCESSO;

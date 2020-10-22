@@ -10,8 +10,9 @@
 #define NOVO_TAMANHO_INVALIDO -10
 #define TODAS_ESTRUTURAS_AUXILIARES_VAZIAS -11
 #define ERRO_ABRIR_ARQUIVO -12
+#define ESTRUTURA_VAZIA -13
 #define TAM 10
-#define TAMLINHA 100
+#define TAM_LINHA 100
 
 // Estrutura Principal
 typedef struct principal{

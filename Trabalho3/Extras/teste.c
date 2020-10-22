@@ -43,3 +43,5 @@ void testeInserirComEstrutura(){
     printf("%d\n",inserirNumeroEmEstrutura(1, 2) == SUCESSO);
 
 } 
+
+
