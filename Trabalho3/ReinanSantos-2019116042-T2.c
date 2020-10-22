@@ -19,7 +19,6 @@ depois utilizo as funções existentes para preencher a aplicação.
 
 */
 
-
 void lerArquivo(){
     FILE *input;
     char linha[1001];
@@ -61,15 +60,6 @@ void lerArquivo(){
         }
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 /*  **** ESTÁVEL ****  */
